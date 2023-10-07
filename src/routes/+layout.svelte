@@ -1,177 +1,249 @@
 <script lang="ts" context="module">
-	import { base } from '$app/paths';
-	import { page } from '$app/stores';
-
-	const pages: Record<string, string> = {
-		'/animation': 'Animation',
-		'/web_development': 'Web Development',
-		'/minecraft_java': 'Minecraft: Java'
-	};
+	import '../global.css'
+	import SnaveSutitsPFP from '../assets/Terra Swoop Force SnaveSutit.png'
+	import { page } from '$app/stores'
 </script>
+
+<script lang="ts">
+	const nav_pages: Record<string, string> = {
+		'/': 'PORTFOLIO',
+		'/animations': 'ANIMATIONS',
+		'/resume': 'RESUME',
+		'/about': 'ABOUT'
+	}
+	let screenWidth: number
+	let showMenu: boolean = false
+	$: if (screenWidth > 1100) showMenu = false
+	function toggleMenu() {
+		showMenu = !showMenu
+	}
+</script>
+
+<svelte:window bind:innerWidth={screenWidth} />
+
+<svelte:head>
+	<link href="https://fonts.googleapis.com/css?family=Vazirmatn" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Archivo Black" rel="stylesheet" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+		rel="stylesheet"
+	/>
+</svelte:head>
+
+{#if showMenu}
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div class="popup_menu_background" on:click={toggleMenu}>
+		<div class="popup_menu">
+			<span class="material-symbols-outlined" on:click={toggleMenu}>close</span>
+			<div>
+				{#each Object.keys(nav_pages) as nav_path}
+					{#if nav_path === $page.url.pathname}
+						<a class="navigated_page" href="/">{nav_pages[nav_path]}</a>
+					{:else}
+						<a href={nav_path}>{nav_pages[nav_path]}</a>
+					{/if}
+				{/each}
+			</div>
+		</div>
+	</div>
+{/if}
 
 <div class="header">
 	<div class="author">
-		<h1>Titus Evans</h1>
-		<h3>Technical Animator & Indie Game Developer</h3>
+		<img src={SnaveSutitsPFP} alt="SnaveSutit's PFP" />
+		<h1>TITUS EVANS</h1>
 	</div>
-	<nav class="header_nav">
-		<a href="/">Home</a>
-		<a href="/resume">Resume</a>
+	<nav>
+		{#if screenWidth > 1100}
+			{#each Object.keys(nav_pages) as nav_path}
+				{#if nav_path === $page.url.pathname}
+					<a class="navigated_page" href="/">{nav_pages[nav_path]}</a>
+				{:else}
+					<a href={nav_path}>{nav_pages[nav_path]}</a>
+				{/if}
+			{/each}
+		{:else}
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<span class="material-symbols-outlined" on:click={toggleMenu}>menu</span>
+		{/if}
 	</nav>
 </div>
 
-{#if !($page.url.pathname === '/resume')}
-	<nav class="bar_nav">
-		{#each Object.keys(pages) as p}
-			{#if $page.url.pathname === p}
-				<a class="selected" href="{base}{p}">{pages[p]}</a>
-			{:else}
-				<a href="{base}{p}">{pages[p]}</a>
-			{/if}
-		{/each}
-	</nav>
-{/if}
-
-<div class="page_container">
+<div class="spacer" />
+<div class="page_content">
 	<slot />
 </div>
 
 <style>
-	.header {
-		display: flex;
-		flex-direction: row;
-		padding-left: 5rem;
-		border-bottom: 1px solid var(--color-subtle_text);
-		background-color: var(--color-ui);
-		justify-content: space-between;
-		align-items: stretch;
+	@media only screen and (max-width: 1100px) {
+		:global(body) {
+			min-width: 65vh;
+		}
+		.header {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+			justify-content: space-between;
+			height: 64px;
+			background-color: var(--color-foreground);
+			box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
+			flex-grow: 1;
+			z-index: 2;
+		}
+		.spacer {
+			height: 64px;
+		}
+		.author {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+		.author img {
+			border-radius: 50%;
+			height: 50px;
+			width: 50px;
+			margin-left: 8px;
+		}
+		.author h1 {
+			font-family: 'Archivo Black', sans-serif;
+			font-size: 32px;
+			margin-left: 16px;
+		}
+		a {
+			font-size: 24px;
+			color: var(--color-text);
+			text-decoration: none;
+			margin: 0px 16px;
+			margin-bottom: 8px;
+			border-bottom: 0px solid transparent;
+			transition: border-bottom-width cubic-bezier(1, 2, 0, 1) 0.1s;
+		}
+		a:hover {
+			border-bottom: 4px solid var(--color-text);
+		}
+		a.navigated_page {
+			border-bottom: 4px solid var(--color-accent);
+		}
+		a.navigated_page:hover {
+			border-bottom: 4px solid var(--color-accent);
+		}
+		nav {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			margin-top: 8px;
+		}
+		nav span {
+			font-size: 50px;
+			color: var(--color-text);
+			text-decoration: none;
+			margin: 0px 16px;
+			margin-bottom: 8px;
+			border-bottom: 0px solid transparent;
+		}
+		.popup_menu_background {
+			position: fixed;
+			z-index: 10;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+		.popup_menu {
+			margin: 25% 25%;
+			min-height: 50%;
+			padding: 32px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			/* justify-content: space-between; */
+			background-color: var(--color-foreground);
+		}
+		.popup_menu div {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			flex-grow: 1;
+		}
+		.popup_menu a {
+			color: var(--color-text);
+			font-size: 1.7rem;
+			margin: 16px;
+		}
+		.popup_menu .material-symbols-outlined {
+			font-size: 64px;
+			margin-left: 80%;
+		}
 	}
-
-	.author {
-		display: flex;
-		flex-direction: column;
-		align-items: start;
-		padding-bottom: 1rem;
+	@media only screen and (min-width: 1100px) {
+		.header {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+			justify-content: space-between;
+			height: 128px;
+			background-color: var(--color-foreground);
+			box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
+			flex-grow: 1;
+			z-index: 2;
+		}
+		.spacer {
+			height: 128px;
+		}
+		.author {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+		.author img {
+			border-radius: 50%;
+			height: 100px;
+			width: 100px;
+			margin-left: 16px;
+		}
+		.author h1 {
+			font-family: 'Archivo Black', sans-serif;
+			font-size: 48px;
+			margin-left: 32px;
+		}
+		nav {
+			display: flex;
+			flex-direction: row;
+			align-items: end;
+			margin-right: 16px;
+		}
+		nav a {
+			font-size: 24px;
+			color: var(--color-text);
+			text-decoration: none;
+			margin: 0px 16px;
+			margin-bottom: 8px;
+			border-bottom: 0px solid transparent;
+			transition: border-bottom-width cubic-bezier(1, 2, 0, 1) 0.1s;
+		}
+		nav a:hover {
+			border-bottom: 4px solid var(--color-text);
+		}
+		a.navigated_page {
+			border-bottom: 4px solid var(--color-accent);
+		}
+		a.navigated_page:hover {
+			border-bottom: 4px solid var(--color-accent);
+		}
 	}
-
-	.author h1 {
-		margin: 0;
-		font-size: 3rem;
-	}
-
-	.author h3 {
-		margin: 0;
-		font-size: 1.5rem;
-		font-weight: 400;
-	}
-
-	.header_nav {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		padding-right: 5rem;
-	}
-
-	.header_nav a {
-		color: var(--color-light);
-		background-color: var(--color-button);
-		text-decoration: none;
-		padding: 0.5rem 1rem;
-		margin: 0 0.5rem;
-		transition: background-color 0.2s ease;
-	}
-
-	.header_nav a:hover {
-		/* color: var(--color-accent); */
-		background-color: var(--color-selected);
-	}
-
-	.bar_nav {
-		display: flex;
-		justify-content: center;
-		background-color: var(--color-dark);
-	}
-
-	.bar_nav a {
-		color: var(--color-light);
-		text-decoration: none;
-		padding: 0.5rem 1rem;
-		transition: border-bottom 0.2s ease, background-color 0.2s ease;
-		border-bottom: 4px solid var(--color-dark);
-	}
-	.bar_nav a:hover {
-		/* color: var(--color-accent); */
-		background-color: var(--color-selected);
-		border-bottom: 4px solid var(--color-accent);
-	}
-	.bar_nav a.selected {
-		border-bottom: 4px solid var(--color-accent);
-	}
-
-	:global(::-webkit-scrollbar) {
-		width: 10px;
-	}
-	:global(::-webkit-scrollbar-track) {
-		border-radius: 10px;
-		background: var(--color-back);
-	}
-	:global(::-webkit-scrollbar-thumb) {
-		border-radius: 10px;
-		background: var(--color-button);
-	}
-	:global(::-webkit-scrollbar-thumb:hover) {
-		background: var(--color-accent);
-	}
-
-	:global(body) {
-		color: var(--color-text);
-		font-family: var(--font-main);
-		background-color: var(--color-back);
-		margin: 0px;
-		padding: 0px;
-	}
-
-	:global(a) {
-		color: var(--color-accent);
-	}
-
-	:global(*) {
-		--color-back: #21252b;
-		--color-dark: #17191d;
-		--color-border: #181a1f;
-		--color-ui: #282c34;
-		--color-accent: #3e90ff;
-		--color-button: #3a3f4b;
-		--color-selected: #474d5d;
-		--color-text: #cacad4;
-		--color-light: #f4f3ff;
-		--color-accent_text: #000006;
-		--color-bright_ui_text: #000006;
-		--color-subtle_text: #848891;
-		--color-bright_ui: #f4f3ff;
-		--color-bright_border: var(--color-text);
-		--color-grid: #495061;
-		--color-checkerboard: #1c2026;
-
-		--color-menu_separator: #b0afba;
-
-		--color-close: #d62e3f;
-		--color-confirm: #90ee90;
-		--color-error: #ff2a51;
-		--color-warning: #ffc400;
-		--color-stream: #6442a4;
-
-		--color-axis-x: #ff1242;
-		--color-axis-y: #23d400;
-		--color-axis-z: #0894ed;
-
-		--font-custom-main: '';
-		--font-custom-headline: '';
-		--font-custom-code: '';
-
-		--font-main: var(--font-custom-main), Assistant, segoe ui, sans-serif;
-		--font-headline: var(--font-custom-headline), var(--font-custom-main), Assistant, segoe ui,
-			sans-serif;
-		--font-code: var(--font-custom-code), Consolas, Monospace;
+	.page_content {
+		overflow-y: auto;
 	}
 </style>

@@ -1,64 +1,45 @@
 <script lang="ts" context="module">
-	// import { base } from '$app/paths';
-	import { FAVORITE_VIDEOS } from '$lib/videos';
-	import { circOut } from 'svelte/easing';
-	import { fly } from 'svelte/transition';
+	// import '../global.css'
+	import { FAVORITE_VIDEOS } from '$lib/videos'
+	import Video from '$lib/components/video.svelte'
 </script>
 
 <script lang="ts">
-	function update_controls(event: MouseEvent, enabled: boolean) {
-		(event.target as HTMLVideoElement).controls = enabled;
-	}
 </script>
 
-<div class="centered">
-	<h1 in:fly={{ easing: circOut, x: 40, duration: 250 }}>Welcome!</h1>
-
-	<div class="video_grid">
-		{#each FAVORITE_VIDEOS as p}
-			<video
-				on:mouseenter={(e) => update_controls(e, true)}
-				on:mouseleave={(e) => update_controls(e, false)}
-			>
-				<track kind="captions" />
-				<source src={p} type="video/mp4" />
-				Your browser does not support the video tag.
-			</video>
-		{/each}
-	</div>
+<div class="portfolio_grid">
+	{#each FAVORITE_VIDEOS as src}
+		<div class="video_wrapper">
+			<Video {src} loop />
+		</div>
+	{/each}
+	{#each FAVORITE_VIDEOS as src}
+		<div class="video_wrapper">
+			<Video {src} loop />
+		</div>
+	{/each}
 </div>
 
 <style>
-	.centered {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.video_grid {
+	.portfolio_grid {
 		display: grid;
-		width: 90%;
-		grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
-		justify-content: center;
-		padding-right: 2.25rem;
-		grid-gap: 1.5rem;
-		grid-auto-flow: dense;
-		row-gap: 0rem;
-		background-color: var(--color-dark);
+		grid-template-columns: repeat(3, minmax(100px, 1fr));
+		grid-gap: 32px;
+		padding: 32px;
 	}
 
-	video {
-		width: 100%;
-		max-width: 512px;
-		margin: 1rem;
-		border: 2px solid var(--color-ui);
-		background-color: var(--color-dark);
+	.video_wrapper {
+		display: flex;
+		width: 1fr;
+		height: 1fr;
+		border: 4px solid var(--color-background);
 		transition: scale cubic-bezier(1, 2, 0, 1) 0.2s;
+		place-self: center;
 	}
 
-	video:not(:fullscreen):hover {
+	.video_wrapper:hover {
 		scale: 1.1;
-		z-index: 1000;
-		border: 2px solid var(--color-accent);
+		z-index: 1;
+		border: 4px solid var(--color-foreground);
 	}
 </style>
