@@ -6,14 +6,15 @@
 
 <script lang="ts">
 	const nav_pages: Record<string, string> = {
-		'/': 'PORTFOLIO',
+		'/': 'HOME',
 		'/animations': 'ANIMATIONS',
+		'/projects': 'PROJECTS',
 		'/resume': 'RESUME',
 		'/about': 'ABOUT'
 	}
 	let screenWidth: number
 	let showMenu: boolean = false
-	$: if (screenWidth > 1100) showMenu = false
+	$: if (screenWidth > 1200) showMenu = false
 	function toggleMenu() {
 		showMenu = !showMenu
 	}
@@ -55,7 +56,7 @@
 		<h1>TITUS EVANS</h1>
 	</div>
 	<nav>
-		{#if screenWidth > 1100}
+		{#if screenWidth > 1000}
 			{#each Object.keys(nav_pages) as nav_path}
 				{#if nav_path === $page.url.pathname}
 					<a class="navigated_page" href="/">{nav_pages[nav_path]}</a>
@@ -77,7 +78,7 @@
 </div>
 
 <style>
-	@media only screen and (max-width: 1100px) {
+	@media only screen and (max-width: 1200px) {
 		:global(body) {
 			min-width: 65vh;
 		}
@@ -145,6 +146,7 @@
 			margin: 0px 16px;
 			margin-bottom: 8px;
 			border-bottom: 0px solid transparent;
+			cursor: pointer;
 		}
 		.popup_menu_background {
 			position: fixed;
@@ -182,9 +184,10 @@
 		.popup_menu .material-symbols-outlined {
 			font-size: 64px;
 			margin-left: 80%;
+			cursor: pointer;
 		}
 	}
-	@media only screen and (min-width: 1100px) {
+	@media only screen and (min-width: 1200px) {
 		.header {
 			position: fixed;
 			top: 0;
@@ -232,8 +235,10 @@
 			margin-bottom: 8px;
 			border-bottom: 0px solid transparent;
 			transition: border-bottom-width cubic-bezier(1, 2, 0, 1) 0.1s;
+			cursor: pointer;
 		}
 		nav a:hover {
+			/* transform: translateY(-4px); */
 			border-bottom: 4px solid var(--color-text);
 		}
 		a.navigated_page {
