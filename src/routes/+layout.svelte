@@ -72,7 +72,6 @@
 	</nav>
 </div>
 
-<div class="spacer" />
 <div class="page_content">
 	<slot />
 </div>
@@ -95,9 +94,6 @@
 			box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
 			flex-grow: 1;
 			z-index: 2;
-		}
-		.spacer {
-			height: 64px;
 		}
 		.author {
 			display: flex;
@@ -186,6 +182,12 @@
 			margin-left: 80%;
 			cursor: pointer;
 		}
+		.page_content {
+			margin-top: 64px;
+			height: auto;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
 	}
 	@media only screen and (min-width: 1200px) {
 		.header {
@@ -201,9 +203,6 @@
 			box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
 			flex-grow: 1;
 			z-index: 2;
-		}
-		.spacer {
-			height: 128px;
 		}
 		.author {
 			display: flex;
@@ -238,7 +237,6 @@
 			cursor: pointer;
 		}
 		nav a:hover {
-			/* transform: translateY(-4px); */
 			border-bottom: 4px solid var(--color-text);
 		}
 		a.navigated_page {
@@ -247,8 +245,11 @@
 		a.navigated_page:hover {
 			border-bottom: 4px solid var(--color-accent);
 		}
-	}
-	.page_content {
-		overflow-y: auto;
+		.page_content {
+			margin-top: 128px;
+			height: auto;
+			overflow-y: auto;
+			overflow-x: hidden;
+		}
 	}
 </style>

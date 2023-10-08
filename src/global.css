@@ -20,7 +20,12 @@
 	}
 }
 
+html,
 body {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+
 	background-color: var(--color-background);
 	color: var(--color-text);
 	margin: 0;
