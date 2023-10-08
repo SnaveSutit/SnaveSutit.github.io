@@ -16,6 +16,7 @@
 	on:mouseenter={(e) => play_pause_video(e, true)}
 	on:mouseleave={(e) => play_pause_video(e, false)}
 	{loop}
+	muted
 >
 	<source {src} type="video/mp4" />
 	Your browser does not support the video tag.
