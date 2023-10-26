@@ -60,8 +60,8 @@ jobs:
       #     # Same were the new repo was initialized in the previous step
       #     directory: ./build/
 
-      - name: Checkout
-        uses: actions/checkout@v3
+      # - name: Checkout
+      #   uses: actions/checkout@v3
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
