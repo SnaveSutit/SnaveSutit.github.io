@@ -6,11 +6,11 @@
 
 <script lang="ts">
 	const nav_pages: Record<string, string> = {
-		'/': 'HOME',
-		'/animations': 'ANIMATIONS',
-		'/projects': 'PROJECTS',
-		'/resume': 'RESUME',
-		'/about': 'ABOUT'
+		'/': 'PORTFOLIO',
+		// '/animations': 'ANIMATIONS',
+		// '/projects': 'PROJECTS',
+		'/resume': 'RESUME'
+		// '/about': 'ABOUT'
 	}
 	let screenWidth: number
 	let showMenu: boolean = false
