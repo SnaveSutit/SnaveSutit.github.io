@@ -44,6 +44,7 @@
 			<li>3D MODELING</li>
 			<li>MATHMATIC</li>
 			<li>GAME DEV</li>
+			<li>VSCODE EXTENSION DEV</li>
 			<li>GAME ANIMATION</li>
 			<li>TOOL CREATION</li>
 		</lu>
