@@ -123,6 +123,22 @@
 
 <style>
 	@media only screen and (max-width: 1200px) {
+		div.title {
+			margin-top: 8px !important;
+			flex-direction: column;
+			align-items: center;
+		}
+		div.title > h1 {
+			text-align: center !important;
+			margin: 0 !important;
+			padding-top: 8px !important;
+			font-size: 28px !important;
+		}
+		.role {
+			font-size: 18px !important;
+			margin-left: 0px !important;
+			margin-bottom: 0px !important;
+		}
 		.preview {
 			width: 100%;
 		}
@@ -195,7 +211,7 @@
 	.info_block_list > div > p {
 		text-align: left;
 		font-size: 20px;
-		margin: 16px 32px;
+		margin: 16px 32px !important;
 	}
 	a {
 		text-align: center;
