@@ -8,7 +8,7 @@
 	const nav_pages: Record<string, string> = {
 		'/': 'PORTFOLIO',
 		// '/animations': 'ANIMATIONS',
-		// '/projects': 'PROJECTS',
+		'/projects': 'PROJECTS',
 		'/resume': 'RESUME'
 		// '/about': 'ABOUT'
 	}
