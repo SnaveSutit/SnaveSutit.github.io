@@ -25,34 +25,33 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name:
+      - name: Install Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '>=18.15.0'
 
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: yarn install
 
-      - name: Install and Build
-        run: |
-          yarn install
-          yarn build
+      - name: Build
+        run: yarn build
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
-      - name: Upload artifact
+      - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v2
         with:
           path: './build'
 
   deploy:
     needs: build
+    runs-on: ubuntu-latest
 
     permissions:
-      contents: read
       pages: write
       id-token: write
 
@@ -60,7 +59,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

@@ -100,6 +100,7 @@
 				</div>
 				<p class="duration">JUN 2022 - PRESENT, REMOTE</p>
 			</li>
+
 			<li class="experience-item">
 				<div class="experience-item-label-container">
 					<div class="experience-item-label">
@@ -113,6 +114,7 @@
 				</div>
 				<p class="duration">AUG 2020 - JUN 2022, REMOTE</p>
 			</li>
+
 			<li class="experience-item">
 				<div class="experience-item-label-container">
 					<div class="experience-item-label">
@@ -139,7 +141,7 @@
 			flex-grow: 1;
 		}
 
-		.experience-item div.experience-item-label-container {
+		.experience-item-label-container {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -149,14 +151,14 @@
 			margin-bottom: 8px;
 		}
 
-		.experience-item div.experience-item-label-container > lu {
+		.experience-item-label-container lu {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: space-evenly;
 		}
 
-		.experience-item div.experience-item-label-container > lu > li {
+		.experience-item-label-container lu li {
 			min-width: fit-content;
 			margin: 4px;
 			padding: 4px 8px 2px;
@@ -182,7 +184,7 @@
 			flex-grow: 1;
 		}
 
-		.experience-item div.experience-item-label-container {
+		.experience-item-label-container {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
@@ -193,14 +195,14 @@
 			padding-left: 32px;
 		}
 
-		.experience-item div.experience-item-label-container > lu {
+		.experience-item-label-container lu {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
 			justify-content: space-evenly;
 		}
 
-		.experience-item div.experience-item-label-container > lu > li {
+		.experience-item-label-container lu li {
 			min-width: fit-content;
 			margin: 4px;
 			padding: 4px 8px 2px;

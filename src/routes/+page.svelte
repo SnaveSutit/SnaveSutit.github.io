@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import { onMount } from 'svelte'
 	import { fly } from 'svelte/transition'
 	import { FAVORITE_VIDEOS } from '$lib/videos'
 	import Video from '$lib/components/video.svelte'
@@ -6,7 +7,7 @@
 
 <script lang="ts">
 	let videoList: string[] = []
-	requestAnimationFrame(() => {
+	onMount(() => {
 		videoList = FAVORITE_VIDEOS
 	})
 </script>
