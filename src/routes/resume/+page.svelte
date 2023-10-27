@@ -88,7 +88,7 @@
 	<div>
 		<h1>EXPERIENCE</h1>
 		<lu>
-			<li class="experience-item">
+			<div class="experience-item">
 				<div class="experience-item-label-container">
 					<div class="experience-item-label">
 						<img class="image_item" src={MoonsworthIcon} alt="" />
@@ -100,9 +100,9 @@
 					</lu>
 				</div>
 				<p class="duration">JUN 2022 - PRESENT, REMOTE</p>
-			</li>
+			</div>
 
-			<li class="experience-item">
+			<div class="experience-item">
 				<div class="experience-item-label-container">
 					<div class="experience-item-label">
 						<img class="image_item" src={NoxcrewIcon} alt="" />
@@ -114,9 +114,9 @@
 					</lu>
 				</div>
 				<p class="duration">AUG 2020 - JUN 2022, REMOTE</p>
-			</li>
+			</div>
 
-			<li class="experience-item">
+			<div class="experience-item">
 				<div class="experience-item-label-container">
 					<div class="experience-item-label">
 						<img class="image_item" src={CoretekIcon} alt="" />
@@ -127,7 +127,7 @@
 					</lu>
 				</div>
 				<p class="duration">MAY 2018 - JAN 2019, FARMINGTON HILLS, MI</p>
-			</li>
+			</div>
 		</lu>
 	</div>
 </div>
@@ -140,6 +140,9 @@
 			align-items: center;
 			justify-content: space-between;
 			flex-grow: 1;
+			margin: 4px;
+			padding: 4px 8px 2px;
+			border: 2px solid var(--color-text);
 		}
 
 		.experience-item-label-container {
@@ -183,6 +186,9 @@
 			align-items: center;
 			justify-content: space-between;
 			flex-grow: 1;
+			margin: 4px;
+			padding: 4px 8px 2px;
+			border: 2px solid var(--color-text);
 		}
 
 		.experience-item-label-container {
