@@ -2,9 +2,12 @@
 	import '../global.css'
 	import SnaveSutitsPFP from '../assets/Terra Swoop Force SnaveSutit.png'
 	import { page } from '$app/stores'
+	import { onMount } from 'svelte'
 </script>
 
 <script lang="ts">
+	import { onNavigate } from '$app/navigation'
+
 	const nav_pages: Record<string, string> = {
 		'/': 'PORTFOLIO',
 		// '/animations': 'ANIMATIONS',
@@ -14,10 +17,17 @@
 	}
 	let screenWidth: number
 	let showMenu: boolean = false
+	let pageContent: HTMLDivElement
+
 	$: if (screenWidth > 1200) showMenu = false
+
 	function toggleMenu() {
 		showMenu = !showMenu
 	}
+
+	onNavigate(() => {
+		if (pageContent) pageContent.scrollTo(0, 0)
+	})
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} />
@@ -25,10 +35,7 @@
 <svelte:head>
 	<link href="https://fonts.googleapis.com/css?family=Vazirmatn" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css?family=Archivo Black" rel="stylesheet" />
-	<link
-		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-		rel="stylesheet"
-	/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </svelte:head>
 
 {#if showMenu}
@@ -36,7 +43,7 @@
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div class="popup_menu_background" on:click={toggleMenu}>
 		<div class="popup_menu">
-			<span class="material-symbols-outlined" on:click={toggleMenu}>close</span>
+			<span class="material-icons" on:click={toggleMenu}>close</span>
 			<div>
 				{#each Object.keys(nav_pages) as nav_path}
 					{#if nav_path === $page.url.pathname}
@@ -67,12 +74,12 @@
 		{:else}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<span class="material-symbols-outlined" on:click={toggleMenu}>menu</span>
+			<span class="material-icons" on:click={toggleMenu}>menu</span>
 		{/if}
 	</nav>
 </div>
 
-<div class="page_content">
+<div class="page_content" bind:this={pageContent}>
 	<slot />
 </div>
 
@@ -177,7 +184,7 @@
 			font-size: 1.7rem;
 			margin: 16px;
 		}
-		.popup_menu .material-symbols-outlined {
+		.popup_menu .material-icons {
 			font-size: 64px;
 			margin-left: 80%;
 			cursor: pointer;
@@ -187,6 +194,7 @@
 			height: auto;
 			overflow-y: auto;
 			overflow-x: hidden;
+			/* scroll-behavior: smooth; */
 		}
 	}
 	@media only screen and (min-width: 1200px) {
@@ -250,6 +258,7 @@
 			height: auto;
 			overflow-y: auto;
 			overflow-x: hidden;
+			/* scroll-behavior: smooth; */
 		}
 	}
 </style>

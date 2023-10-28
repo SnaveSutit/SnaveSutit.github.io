@@ -33,24 +33,13 @@
 	@media only screen and (min-width: 1200px) {
 		.portfolio_grid {
 			display: grid;
-			grid-template-columns: repeat(3, minmax(100px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(35vh, 1fr));
 			grid-gap: 32px;
 			padding: 32px;
 		}
 	}
 
 	.video_wrapper {
-		display: flex;
-		width: 1fr;
-		height: 1fr;
-		border: 4px solid var(--color-background);
-		transition: scale cubic-bezier(1, 2, 0, 1) 0.2s;
 		place-self: center;
-	}
-
-	.video_wrapper:hover {
-		scale: 1.1;
-		z-index: 1;
-		border: 4px solid var(--color-foreground);
 	}
 </style>
