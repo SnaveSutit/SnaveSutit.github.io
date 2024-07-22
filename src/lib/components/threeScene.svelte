@@ -1,6 +1,10 @@
 <script lang="ts" context="module">
 	import { Camera, Scene, WebGLRenderer } from 'three'
 	import { onMount } from 'svelte'
+	import { SSAARenderPass } from 'three/examples/jsm/postprocessing/SSAARenderPass'
+	import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader'
+	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
+	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 </script>
 
 <script lang="ts">
@@ -16,9 +20,13 @@
 		renderer.setSize(width, height)
 		canvasContainer.appendChild(renderer.domElement)
 
+		const composer = new EffectComposer(renderer)
+		composer.addPass(new SSAARenderPass(scene, camera))
+		composer.addPass(new ShaderPass(GammaCorrectionShader))
+
 		renderer.setAnimationLoop(() => {
 			onRender?.(renderer)
-			renderer.render(scene, camera)
+			composer.render()
 		})
 	})
 </script>
@@ -27,7 +35,6 @@
 
 <style>
 	div {
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-		margin: 1rem;
+		image-rendering: optimizeQuality;
 	}
 </style>
