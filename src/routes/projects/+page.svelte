@@ -35,7 +35,7 @@
 				<a href="https://github.com/Animated-Java/animated-java">Github</a>
 			</li>
 			<li>
-				<a href="https://github.com/Animated-Java/animated-java">Website</a>
+				<a href="https://animated-java.dev/">Website</a>
 			</li>
 		</lu>
 	</div>
