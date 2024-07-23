@@ -20,7 +20,7 @@
 <div class="container">
 	<div class="title">
 		<div>
-			<img src="/img/snavesutit_nametag.png" alt="SnaveSutit" />
+			<img src="/img/snavesutit_nametag.png" alt="SnaveSutit" draggable="false" />
 			<Player width={400} height={400} />
 		</div>
 		<div />
