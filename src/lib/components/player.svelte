@@ -11,14 +11,16 @@
 		Vector2,
 		Clock
 	} from 'three'
-	import { onMount, type SvelteComponent } from 'svelte'
+	import { type SvelteComponent } from 'svelte'
+	import { getMousePosNormalized } from '../mouse'
+	import { ease, linearInterval, linearWave } from '$lib/easing'
+	import { BoneStructure } from '$lib/three/boneStructure'
+	import { clamp } from '$lib/util'
+	import { scale } from 'svelte/transition'
 </script>
 
 <script lang="ts">
-	import { getMousePosNormalized } from '../mouse'
-	import { ease, lerp, linearInterval, linearWave } from '$lib/easing'
-	import { BoneStructure } from '$lib/three/boneStructure'
-	import { clamp } from '$lib/util'
+	import { expoOut } from 'svelte/easing'
 
 	export let width: number
 	export let height: number
@@ -51,6 +53,7 @@
 	}
 
 	camera.rotateY(Math.PI)
+	camera.rotateX(-0.1)
 	camera.position.z = -1
 	camera.position.y = 0.95
 
@@ -58,13 +61,16 @@
 	let player: BoneStructure | undefined
 	let sceneElement: SvelteComponent
 
-	onMount(async () => {
+	// onMount(async () => {
+	// })
+
+	async function loadModel() {
 		const loaded = await loader.loadAsync('models/player.gltf')
 		player = new BoneStructure(loaded.scene)
 		scene.add(loaded.scene)
-	})
+	}
 
-	let glideMouse: Vector2
+	let glideMouse: Vector2 = new Vector2()
 	let clock = new Clock()
 
 	function onRender(renderer: WebGLRenderer) {
@@ -74,9 +80,9 @@
 		const time = clock.getElapsedTime()
 		const mouse = getMousePosNormalized(element)
 
-		if (!glideMouse) glideMouse = mouse
-		glideMouse.x = lerp(glideMouse.x, mouse.x, 14 * delta)
-		glideMouse.y = lerp(glideMouse.y, mouse.y, 14 * delta)
+		// When the page isn't rendering, the delta between frames can be very large.
+		// So we need to clamp the delta to prevent the player from spinning like a top.
+		glideMouse.lerpVectors(glideMouse, mouse, 14 * clamp(delta, 0, 0.01))
 
 		if (player) {
 			const root = player.getBone('root')!
@@ -85,7 +91,6 @@
 			const waist = player.getBone('waist')!
 			waist.rotation.y = (glideMouse.x - 0.5) * 0.125
 			waist.rotation.x = (glideMouse.y - 0.5) * -0.05
-
 			waist.position.y = 11 / 16 + Math.sin(time) * 0.025
 			waist.position.z = (glideMouse.y - 0.5) * 0.05
 
@@ -112,7 +117,7 @@
 			rightLeg.position.z = (glideMouse.y - 0.5) * 0.05
 
 			const head = player.getBone('head')!
-			head.lookAt(glideMouse.x - 0.5, glideMouse.y + 1.25, 1)
+			head.lookAt(glideMouse.x - 0.5, glideMouse.y + 1.25, 2)
 
 			const leftEyeRing = player.getBone('left_eye_ring')!
 			leftEyeRing.position.x = -2 / 16 + ease('easeInOutExpo', linearWave(time)) * 0.025 - 0.025
@@ -136,9 +141,12 @@
 	}
 </script>
 
-<div class="container">
-	<div class="shadow" />
-	<ThreeScene {camera} {scene} {width} {height} {onRender} bind:this={sceneElement} />
+<div class="container" style="width: {width}px; height: {height}px;">
+	{#await loadModel() then}
+		<div in:scale={{ duration: 500, start: 0.8, easing: expoOut }}>
+			<ThreeScene {camera} {scene} {width} {height} {onRender} bind:this={sceneElement} />
+		</div>
+	{/await}
 </div>
 
 <style>
@@ -146,13 +154,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-	}
-	.shadow {
-		width: 128px;
-		height: 20px;
-		background-color: rgba(0, 0, 0, 0.25);
-		border-radius: 50%;
-		position: relative;
-		top: 290px;
+		background-color: #00000000;
+		z-index: 1;
 	}
 </style>

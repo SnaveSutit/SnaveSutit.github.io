@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { Camera, Scene, WebGLRenderer } from 'three'
-	import { onMount } from 'svelte'
+	import { onDestroy, onMount } from 'svelte'
 	import { SSAARenderPass } from 'three/examples/jsm/postprocessing/SSAARenderPass'
 	import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader'
 	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
@@ -15,8 +15,10 @@
 	export let camera: Camera
 	export let onRender: ((renderer: WebGLRenderer) => void) | undefined = undefined
 
+	let renderer: WebGLRenderer
+
 	onMount(() => {
-		const renderer = new WebGLRenderer({ alpha: true })
+		renderer = new WebGLRenderer({ alpha: true })
 		renderer.setSize(width, height)
 		canvasContainer.appendChild(renderer.domElement)
 
@@ -28,6 +30,10 @@
 			onRender?.(renderer)
 			composer.render()
 		})
+	})
+
+	onDestroy(() => {
+		renderer?.dispose()
 	})
 </script>
 

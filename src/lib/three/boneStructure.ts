@@ -10,11 +10,14 @@ export class BoneStructure {
 				console.warn(`Duplicate bone name: '${obj.name}'`)
 			}
 
-			if (obj instanceof Mesh && obj.name.endsWith('_emissive')) {
+			if (obj instanceof Mesh) {
 				const mat = obj.material as MeshStandardMaterial
-				mat.emissive.set(0xffffff)
-				mat.emissiveMap = mat.map
-				mat.emissiveIntensity = 0.5
+				if (obj.name.endsWith('_emissive')) {
+					mat.emissive.set(0xffffff)
+					mat.emissiveMap = mat.map
+					mat.emissiveIntensity = 0.75
+				}
+				// mat.transparent = true
 			}
 
 			this.bones.set(obj.name, obj)
