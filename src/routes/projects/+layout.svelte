@@ -1,13 +1,13 @@
-<div class="navigation">
+<!-- <div class="navigation">
 	<a href="/">Home</a>
 	<a href="/projects"><img src="/img/projects_title.png" alt="Projects" draggable="false" /></a>
 	<a href="/about"><img src="/img/about_title.png" alt="About" draggable="false" /></a>
 	<a href="/contact"><img src="/img/contact_title.png" alt="Contact" draggable="false" /></a>
-</div>
+</div> -->
 
 <slot />
 
-<style>
+<!-- <style>
 	.navigation {
 		position: fixed;
 		top: 0;
@@ -25,4 +25,4 @@
 	.navigation img {
 		height: 32px;
 	}
-</style>
+</style> -->
