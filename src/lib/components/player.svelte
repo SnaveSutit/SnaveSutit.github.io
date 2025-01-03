@@ -6,6 +6,7 @@
 	import { HTML, useGltf, useInteractivity } from '@threlte/extras'
 	import { Vector2 } from 'three'
 	import { Animation } from '../animation'
+	import { degToRad } from 'three/src/math/MathUtils'
 
 	const viewScale = 1.25
 	const viewSize = new Vector2(0.75 * viewScale, 1 * viewScale)
@@ -26,15 +27,23 @@
 
 	const { pointer } = useInteractivity()
 
+	let mouse: Vector2 = new Vector2()
+
 	function setupAnimations() {
 		const idle = new Animation('idle', bones, q => {
-			const mouse = new Vector2($pointer.x, $pointer.y - 0.8).multiplyScalar(0.5)
+			mouse = mouse.lerpVectors(
+				mouse,
+				new Vector2($pointer.x, $pointer.y - 0.8).multiplyScalar(0.5),
+				20 * q.delta
+			)
+			mouse.clampScalar(-2, 2)
 			mouseVelocity.subVectors(glideMouse, lastGlideMouse).clampScalar(-0.1, 0.1)
 			const mouseSpeed = clamp(mouseVelocity.length(), -0.1, 0.1)
 			lastGlideMouse.copy(glideMouse)
 			// When the page isn't rendering, the delta between frames can be very large.
 			// So we need to clamp the delta to prevent the player from spinning like a top.
 			glideMouse.lerpVectors(glideMouse, mouse, 14 * clamp(q.delta, 0, 0.01))
+
 			return { ...q, mouse, mouseSpeed }
 		})
 			.setBoneAnimator('root', (root, q) => {
@@ -83,12 +92,12 @@
 				eye.scale.y = clamp(
 					1 +
 						clamp(ease('easeInCubic', linearInterval(q.time * 4, 4 * 4)) * -1.25, -1, 0) -
-						q.mouseSpeed * 10,
+						q.mouseSpeed * 2,
 					0,
 					2
 				)
 				eye.scale.x =
-					1 + ease('easeInCubic', linearInterval(q.time * 4, 4 * 4)) * 0.25 - q.mouseSpeed * -10
+					1 + ease('easeInCubic', linearInterval(q.time * 4, 4 * 4)) * 0.25 - q.mouseSpeed * -2
 			})
 			.setBoneAnimator('left_ear', (leftEar, q) => {
 				leftEar.rotation.x =
@@ -99,10 +108,10 @@
 					-0.125 + ease('easeInOutExpo', linearWave(q.time - 0.25)) * 0.125 - mouseVelocity.y * 5
 			})
 			.setBoneAnimator('head', (head, q) => {
-				head.lookAt(q.mouse.x * 2, -q.mouse.y + 1.25, 2)
-				head.scale.y = 1 + q.mouseSpeed * -0.9
-				head.scale.z = 1 + q.mouseSpeed * 0.9
-				head.scale.x = 1 + q.mouseSpeed * 0.9
+				head.lookAt(q.mouse.x * 2, -q.mouse.y + 1.25, 5)
+				head.scale.y = 1 + q.mouseSpeed * -0.5
+				head.scale.z = 1 + q.mouseSpeed * 0.5
+				head.scale.x = 1 + q.mouseSpeed * 0.5
 			})
 		return { idle }
 	}
