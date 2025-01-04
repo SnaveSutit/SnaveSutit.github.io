@@ -66,12 +66,13 @@
 			</div>
 		</div>
 		<div class="description">
-			<h1>Hey there! I'm Titus</h1>
+			<h1>Hey there!</h1>
+			<h1>I'm Titus</h1>
 			<p>
-				I'm a software engineer, full-stack web developer, technical animator, and game developer.
+				I am a software engineer, full-stack web developer, technical animator, and game developer.
 			</p>
 			<p>
-				I'm passionate about creating tools and experiences that inspire and empower others to do
+				I am passionate about creating tools and experiences that inspire and empower others to do
 				the same!
 			</p>
 		</div>
