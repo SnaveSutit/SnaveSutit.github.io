@@ -6,13 +6,14 @@
 
 	// import * as ease from 'svelte/easing'
 	import '../lib/styles.css'
+	import '../lib/minecraftUI.css'
 
-	import { beforeNavigate, afterNavigate } from '$app/navigation'
+	import { beforeNavigate, afterNavigate, goto } from '$app/navigation'
 	import { onMount } from 'svelte'
 	// import { fade, fly, scale } from 'svelte/transition'
 	const playerSize = 300
 
-	// export let data
+	export let data
 
 	let isLoading = false
 	beforeNavigate(({ to }) => (isLoading = !!to?.route.id))
@@ -22,6 +23,16 @@
 	function onPlayerSceneLoaded() {
 		isPlayerSceneLoaded = true
 	}
+
+	onMount(() => {
+		addEventListener('mousedown', event => {
+			if (event.target instanceof HTMLButtonElement) {
+				const audio = new Audio('/sounds/click.mp3')
+				audio.volume = 0.25
+				audio.play()
+			}
+		})
+	})
 </script>
 
 <svelte:head>
@@ -30,36 +41,31 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </svelte:head>
 
-{#if isLoading}
-	<div>Loading...</div>
-{/if}
-
 <div class="site-container">
-	<div class="title transition">
-		<div
-			class="transition"
-			style={`opacity:${isPlayerSceneLoaded ? 1 : 0};` + 'transform-origin: 0 0;'}
-		>
-			<img
-				class="nametag"
-				src="/img/snavesutit_nametag.png"
-				alt="SnaveSutit"
-				draggable="false"
-				width={playerSize / 2}
-			/>
-			<ThreeScene
-				width={playerSize * 0.75}
-				height={playerSize}
-				let:container
-				onLoad={onPlayerSceneLoaded}
-			>
-				<Renderer />
-				<Mouse global {container}>
-					<Player />
-				</Mouse>
-			</ThreeScene>
+	<div class="title minecraft-box" style="padding-top: 16px;">
+		<div>
+			<div class="transition" style={`opacity:${isPlayerSceneLoaded ? 1 : 0};`}>
+				<img
+					class="nametag"
+					src="/img/snavesutit_nametag.png"
+					alt="SnaveSutit"
+					draggable="false"
+					width={playerSize / 2}
+				/>
+				<ThreeScene
+					width={playerSize * 0.75}
+					height={playerSize}
+					let:container
+					onLoad={onPlayerSceneLoaded}
+				>
+					<Renderer />
+					<Mouse global {container}>
+						<Player />
+					</Mouse>
+				</ThreeScene>
+			</div>
 		</div>
-		<div class={'description transition'}>
+		<div class="description">
 			<h1>Hey there! I'm Titus.</h1>
 			<p>
 				I'm a software engineer, full-stack web developer, technical animator, and game developer.
@@ -71,98 +77,70 @@
 		</div>
 	</div>
 
-	<div class="container">
-		<div class="card-container">
-			<a class="card" href="/projects">
-				<div class="img-container">
-					<img src="/img/projects_title.png" alt="Projects" draggable="false" />
-				</div>
-			</a>
-			<a class="card" href="/about">
-				<div class="img-container">
-					<img src="/img/about_title.png" alt="About" draggable="false" />
-				</div>
-			</a>
-			<a class="card" href="/contact">
-				<div class="img-container">
-					<img src="/img/contact_title.png" alt="Contact" draggable="false" />
-				</div>
-			</a>
+	<div class="page-content minecraft-box">
+		<div style="display: flex; justify-content: center;">
+			<button class="page-button" disabled={data.pathname === '/'} on:click={() => goto('/')}>
+				Projects
+			</button>
+			<button
+				class="page-button"
+				disabled={data.pathname === '/about'}
+				on:click={() => goto('/about')}
+			>
+				About
+			</button>
+			<button
+				class="page-button"
+				disabled={data.pathname === '/contact'}
+				on:click={() => goto('/contact')}
+			>
+				Contact
+			</button>
 		</div>
+		<hr />
+		<slot />
 	</div>
-
-	<slot />
 </div>
 
 <style>
-	.card-container {
+	.page-content {
 		display: flex;
-		flex-direction: row;
-		justify-content: center;
+		flex-direction: column;
 		align-items: center;
+		padding-top: 20px;
+		margin-bottom: 64px;
+		width: 75%;
+		align-self: center;
 	}
 
-	.card {
-		background-color: var(--color-foreground);
-		border-radius: 64px;
-		margin: 0 16px;
-		padding: 1rem;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-		width: 300px;
+	.page-button {
+		width: 256px;
 		height: 64px;
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		transition: transform 0.1s cubic-bezier(0.5, 0, 0.5, 1);
-		border-image-width: 24px;
-		border-image-slice: 6;
-		border-image-source: url(/img/border.png);
-		image-rendering: pixelated;
-		justify-content: center;
-	}
-	.card:hover {
-		transform: scale(1.05) translateZ(0.25px);
-	}
-	.card img {
-		transition: transform 0.1s cubic-bezier(0.5, 0, 0.5, 1),
-			filter 0.1s cubic-bezier(0.5, 0, 0.5, 1);
-	}
-	.card:hover img {
-		transform: translateY(-5px) scale(1.05);
-		filter: drop-shadow(0px 6px 2px rgb(0, 0, 0, 0.5));
-	}
-	.img-container {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-	}
-	.img-container img {
-		height: 50px;
-		/* filter: drop-shadow(0px 2px 2px rgb(0, 0, 0, 0.5)); */
-	}
-
-	.container {
-		display: flex;
-		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		flex-grow: 1;
+		font-size: 24px;
 	}
 
 	.site-container {
 		height: 100%;
 		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 16px;
+		overflow: auto;
 	}
 	.title {
-		gap: 4rem;
 		margin-top: 64px;
-		width: 100%;
 		display: flex;
 		flex-direction: row;
-		align-items: start;
+		align-items: stretch;
 		justify-content: center;
 		color: var(--color-text-secondary);
+		align-self: center;
+		/* align-self: start;
+		margin-left: 64px; */
 	}
 	.transition {
 		transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);
@@ -172,12 +150,15 @@
 		flex-direction: column;
 		align-items: center;
 	}
+	.description {
+		padding: 8px 16px;
+	}
 	.title .description {
 		width: 400px;
 	}
 	.title .description p {
 		text-wrap: balance;
-		font-size: 1.5em;
+		font-size: 20px;
 	}
 	.nametag {
 		image-rendering: pixelated;
