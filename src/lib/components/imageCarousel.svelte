@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let images: Array<{ src: string; caption: string }> = []
+	export let title = ''
 
 	let currentImage = 0
 
@@ -12,11 +13,11 @@
 	}
 </script>
 
-<div style="width: 100%">
-	<div class="button-container">
-		<button on:click={previousImage}>
-			{'<'}
-		</button>
+<div class="container">
+	<div class="inner-box">
+		<div class="title minecraft-title-box">
+			<h2 style="color: inherit; align-self:center; filter: unset;">{title}</h2>
+		</div>
 		<div class="image-container">
 			<img
 				class="minecraft-border"
@@ -25,19 +26,63 @@
 			/>
 			<p>{images[currentImage].caption}</p>
 		</div>
-		<button on:click={nextImage}>
-			{'>'}
-		</button>
+		<div class="button-container minecraft-inset-box">
+			<button class="arrow-button" on:click={previousImage}>
+				{'<'}
+			</button>
+			{#each images as image, index}
+				<button disabled={index === currentImage} on:click={() => (currentImage = index)}
+					>{index + 1}</button
+				>
+			{/each}
+			<button class="arrow-button" on:click={nextImage}>
+				{'>'}
+			</button>
+		</div>
 	</div>
 </div>
 
 <style>
+	@media screen and (max-width: 800px) {
+		.button-container :not(.arrow-button) {
+			font-size: 3vw !important;
+		}
+		.title h2 {
+			font-size: 3vw !important;
+		}
+		p {
+			font-size: 3vw !important;
+		}
+	}
+
+	.inner-box {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+	}
+
+	.container {
+		width: 100%;
+		margin-top: 32px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.title {
+		display: flex;
+		align-self: stretch;
+		align-items: center;
+		justify-content: center;
+	}
+	.title h2 {
+		margin: 0;
+	}
+
 	.image-container {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 75%;
-		margin: 0 16px;
 		position: relative;
 	}
 	.image-container p {
@@ -52,6 +97,11 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		align-self: stretch;
+	}
+
+	p {
+		opacity: 0.8;
 	}
 
 	img {

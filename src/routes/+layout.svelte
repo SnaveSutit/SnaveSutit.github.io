@@ -42,8 +42,8 @@
 </svelte:head>
 
 <div class="site-container">
-	<div class="title minecraft-box" style="padding-top: 16px;">
-		<div>
+	<div class="title minecraft-box">
+		<div class="minecraft-inset-box" style="margin-right: 16px;">
 			<div class="transition" style={`opacity:${isPlayerSceneLoaded ? 1 : 0};`}>
 				<img
 					class="nametag"
@@ -66,7 +66,7 @@
 			</div>
 		</div>
 		<div class="description">
-			<h1>Hey there! I'm Titus.</h1>
+			<h1>Hey there! I'm Titus</h1>
 			<p>
 				I'm a software engineer, full-stack web developer, technical animator, and game developer.
 			</p>
@@ -78,7 +78,7 @@
 	</div>
 
 	<div class="page-content minecraft-box">
-		<div style="display: flex; justify-content: center;">
+		<div class="page-buttons" style="display: flex; justify-content: center;">
 			<button class="page-button" disabled={data.pathname === '/'} on:click={() => goto('/')}>
 				Projects
 			</button>
@@ -100,9 +100,55 @@
 		<hr />
 		<slot />
 	</div>
+
+	<div class="footer minecraft-box">
+		<p class="footer-text">This site is unaffiliated with Mojang Studios.</p>
+		<p class="footer-text">
+			This site uses icons from <a href="https://github.com/FuncFusion/mc-dp-icons">MC-DP-Icons</a>!
+		</p>
+	</div>
 </div>
 
 <style>
+	@media screen and (max-width: 800px) {
+		.page-content {
+			width: 90% !important;
+		}
+		.page-button {
+			width: 20vw !important;
+			height: 8vw !important;
+			font-size: 3vw !important;
+		}
+		.title {
+			flex-direction: column !important;
+			align-items: center !important;
+			width: 90% !important;
+			margin-top: 16px !important;
+		}
+		.title div:not(.description) {
+			margin: 0 !important;
+			margin-top: 16px !important;
+		}
+		.description {
+			width: 90% !important;
+		}
+		.description p {
+			font-size: 14px !important;
+		}
+	}
+
+	.footer {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		margin-top: auto;
+	}
+	.footer-text {
+		font-size: 16px;
+		padding: 0 16px;
+	}
+
 	.page-content {
 		display: flex;
 		flex-direction: column;
@@ -114,12 +160,14 @@
 	}
 
 	.page-button {
-		width: 256px;
-		height: 64px;
+		width: 20vw;
+		height: 4vw;
+		font-size: 2vw;
+
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: 24px;
+		/* font-size: 24px; */
 	}
 
 	.site-container {
