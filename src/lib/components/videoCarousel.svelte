@@ -7,13 +7,13 @@
 
 	let currentVideo = 0
 
-	async function getYoutubeVideoTitle(id: string) {
-		const res = await fetch(
-			`//www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`
-		)
-		const videoInfo = await res.json()
-		return videoInfo?.title
-	}
+	// async function getYoutubeVideoTitle(id: string) {
+	// 	const res = await fetch(
+	// 		`//www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`
+	// 	)
+	// 	const videoInfo = await res.json()
+	// 	return videoInfo?.title
+	// }
 
 	function nextVideo() {
 		currentVideo = (currentVideo + 1) % videos.length

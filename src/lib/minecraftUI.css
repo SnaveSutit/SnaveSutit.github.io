@@ -86,6 +86,7 @@ button:active {
 		0 0 0 4px #ecedee inset,
 		0 0 0 4px #1e1e1f;
 	padding: calc(4px + 8px) calc(1px + 8px) calc(8px + 4px) calc(4px + 8px);
+	/* border-top: 12px solid #00000000; */
 	margin-top: 12px;
 }
 button:disabled {

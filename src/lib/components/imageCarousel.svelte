@@ -60,6 +60,7 @@
 		flex-direction: column;
 		align-items: center;
 		position: relative;
+		width: 100%;
 	}
 
 	.container {
@@ -84,6 +85,7 @@
 		flex-direction: column;
 		align-items: center;
 		position: relative;
+		width: 100%;
 	}
 	.image-container p {
 		position: absolute;

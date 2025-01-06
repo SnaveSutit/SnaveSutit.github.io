@@ -4,13 +4,11 @@
 	import Renderer from '$lib/components/renderer.svelte'
 	import ThreeScene from '$lib/components/threeScene.svelte'
 
-	// import * as ease from 'svelte/easing'
 	import '../lib/styles.css'
 	import '../lib/minecraftUI.css'
 
 	import { beforeNavigate, afterNavigate, goto } from '$app/navigation'
 	import { onMount } from 'svelte'
-	// import { fade, fly, scale } from 'svelte/transition'
 	const playerSize = 300
 
 	export let data
@@ -79,8 +77,15 @@
 	</div>
 
 	<div class="page-content minecraft-box">
-		<div class="page-buttons" style="display: flex; justify-content: center;">
+		<div class="page-buttons">
 			<button class="page-button" disabled={data.pathname === '/'} on:click={() => goto('/')}>
+				Portfolio
+			</button>
+			<button
+				class="page-button"
+				disabled={data.pathname === '/projects'}
+				on:click={() => goto('/projects')}
+			>
 				Projects
 			</button>
 			<button
@@ -113,12 +118,16 @@
 <style>
 	@media screen and (max-width: 800px) {
 		.page-content {
-			width: 90% !important;
+			margin-left: 16px !important;
+			margin-right: 16px !important;
+		}
+		.page-buttons {
+			flex-direction: column;
+			gap: 16px;
 		}
 		.page-button {
-			width: 20vw !important;
-			height: 8vw !important;
-			font-size: 3vw !important;
+			height: 10vw !important;
+			font-size: 6vw !important;
 		}
 		.title {
 			flex-direction: column !important;
@@ -156,12 +165,21 @@
 		align-items: center;
 		padding-top: 20px;
 		margin-bottom: 64px;
-		width: 75%;
-		align-self: center;
+		margin-left: 10vw !important;
+		margin-right: 10vw !important;
+		align-self: stretch;
+	}
+
+	.page-buttons {
+		display: flex;
+		justify-content: center;
+		align-self: stretch;
+		margin-left: calc(-4px + 16px);
+		margin-right: 16px;
 	}
 
 	.page-button {
-		width: 20vw;
+		flex-grow: 1;
 		height: 4vw;
 		font-size: 2vw;
 
@@ -179,17 +197,17 @@
 		align-items: stretch;
 		gap: 16px;
 		overflow: auto;
+		backdrop-filter: blur(3px);
 	}
 	.title {
-		margin-top: 64px;
+		margin-top: 38px;
 		display: flex;
 		flex-direction: row;
 		align-items: stretch;
 		justify-content: center;
 		color: var(--color-text-secondary);
 		align-self: center;
-		/* align-self: start;
-		margin-left: 64px; */
+		margin-bottom: 32px;
 	}
 	.transition {
 		transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);

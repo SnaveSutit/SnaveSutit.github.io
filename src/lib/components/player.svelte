@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { ease, linearInterval, linearWave } from '$lib/easing'
 	import { BoneStructure } from '$lib/three/boneStructure'
-	import { clamp } from '$lib/util'
+	import { clamp, sigmoid } from '$lib/util'
 	import { T, useTask } from '@threlte/core'
 	import { HTML, useGltf, useInteractivity } from '@threlte/extras'
-	import { Vector2 } from 'three'
+	import { Vector2, Vector3 } from 'three'
 	import { Animation } from '../animation'
-	import { degToRad } from 'three/src/math/MathUtils'
 
 	const viewScale = 1.25
 	const viewSize = new Vector2(0.75 * viewScale, 1 * viewScale)
@@ -24,6 +23,7 @@
 	const glideMouse = new Vector2()
 	const lastGlideMouse = new Vector2()
 	const mouseVelocity = new Vector2()
+	let distanceToEye = 100
 
 	const { pointer } = useInteractivity()
 
@@ -43,6 +43,10 @@
 			// When the page isn't rendering, the delta between frames can be very large.
 			// So we need to clamp the delta to prevent the player from spinning like a top.
 			glideMouse.lerpVectors(glideMouse, mouse, 14 * clamp(q.delta, 0, 0.01))
+
+			const distanceVec = mouse.clone()
+			distanceVec.y += 0.1
+			distanceToEye = distanceVec.length()
 
 			return { ...q, mouse, mouseSpeed }
 		})
@@ -82,9 +86,11 @@
 			})
 			.setBoneAnimator('left_eye_ring', (leftEyeRing, q) => {
 				leftEyeRing.position.x = -2 / 16 + ease('easeInOutExpo', linearWave(q.time)) * 0.025 - 0.025
+				leftEyeRing.position.x -= 0.0125 + sigmoid(distanceToEye, 1, 0.00001) * 0.0125
 			})
 			.setBoneAnimator('right_eye_ring', (rightEyeRing, q) => {
 				rightEyeRing.position.x = 2 / 16 - ease('easeInOutExpo', linearWave(q.time)) * 0.025 + 0.025
+				rightEyeRing.position.x += 0.0125 + sigmoid(distanceToEye, 1, 0.00001) * 0.0125
 			})
 			.setBoneAnimator('eye', (eye, q) => {
 				eye.position.x = clamp(q.mouse.x * -0.25, -0.05, 0.05)
@@ -98,6 +104,9 @@
 				)
 				eye.scale.x =
 					1 + ease('easeInCubic', linearInterval(q.time * 4, 4 * 4)) * 0.25 - q.mouseSpeed * -2
+				const extra = 0.75 + sigmoid(distanceToEye, 1, 0.00001) * 0.75
+				eye.scale.x += extra
+				eye.scale.y += extra
 			})
 			.setBoneAnimator('left_ear', (leftEar, q) => {
 				leftEar.rotation.x =
