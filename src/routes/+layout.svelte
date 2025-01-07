@@ -6,6 +6,7 @@
 
 	import '../lib/styles.css'
 	import '../lib/minecraftUI.css'
+	import { page } from '$app/stores'
 
 	import { beforeNavigate, afterNavigate, goto } from '$app/navigation'
 	import { onMount } from 'svelte'
@@ -31,12 +32,26 @@
 			}
 		})
 	})
+
+	const title = 'SnaveSutit.github.io'
+	const description = "Welcome to Titus' Portfolio!"
 </script>
 
 <svelte:head>
 	<link href="https://fonts.googleapis.com/css?family=Vazirmatn" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css?family=Archivo Black" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+	{#key $page.url.pathname}
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta content={title} property="og:title" />
+		<meta content={description} property="og:description" />
+		<meta content={$page.url.href} property="og:url" />
+		<meta content="/img/snavesutit-pfp.png" property="og:image" />
+		<meta content="#00ACED" data-react-helmet="true" name="theme-color" />
+	{/key}
 </svelte:head>
 
 <div class="site-container">
