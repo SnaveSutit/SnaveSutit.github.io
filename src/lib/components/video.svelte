@@ -22,7 +22,7 @@
 	}
 
 	const intervalID = setInterval(() => {
-		if (video && playing) {
+		if (video) {
 			progress = (video.currentTime / video.duration) * 100
 		}
 	}, 16)
@@ -60,12 +60,16 @@
 
 <!-- svelte-ignore a11y-media-has-caption -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="container" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
-	<video bind:this={video} {loop} on:click={togglePlay}>
+<div
+	class="container minecraft-inset-box"
+	on:mouseenter={onMouseEnter}
+	on:mouseleave={onMouseLeave}
+>
+	<video class="minecraft-box" bind:this={video} {loop} on:click={togglePlay}>
 		<source {src} type="video/mp4" />
 		Your browser does not support the video tag.
 	</video>
-	<div class="controls" style={!playing && videoHovered ? 'opacity: 1' : ''}>
+	<div class="controls minecraft-box" style={!playing && videoHovered ? 'opacity: 1' : ''}>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div on:click|capture={togglePlay}>
 			{#if playing}
@@ -78,7 +82,7 @@
 		{#if video}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<div class="progress_bar" on:click|capture={setProgressViaProgressBarClick}>
-				<div class="progress_bar_fill" style={`width: ${progress}%`} />
+				<div class="progress_bar_fill" style={`width: ${progress}%; pointer-events: none;`} />
 			</div>
 		{/if}
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -99,21 +103,6 @@
 		display: flex;
 		flex-direction: column;
 		width: fit-content;
-		border: 4px solid rgba(0, 0, 0, 0);
-		transition: scale cubic-bezier(1, 2, 0, 1) 0.2s;
-	}
-
-	@media only screen and (min-width: 1200px) {
-		div.container:hover {
-			scale: 1.1;
-			z-index: 1;
-			border: 4px solid var(--color-foreground);
-		}
-	}
-
-	div.container:hover {
-		z-index: 1;
-		border: 4px solid var(--color-foreground);
 	}
 
 	div.controls {
@@ -125,12 +114,12 @@
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: 100.1%;
+		width: 100%;
 
 		opacity: 0;
 		transition: opacity ease 0.2s;
-		background-color: var(--color-foreground);
 		pointer-events: visibleFill;
+		padding: 0;
 	}
 
 	div.controls:hover {
@@ -139,14 +128,17 @@
 
 	div.progress_bar {
 		width: 100%;
-		height: 4px;
+		height: 12px;
 		margin: 0px 8px;
-		background-color: var(--color-text);
+		background-color: var(--minecraft-text-color);
 	}
 
 	div.progress_bar_fill {
-		height: 4px;
-		background-color: var(--color-accent);
+		height: 100%;
+		background-color: var(--minecraft-text-accent-color);
+		/* prettier-ignore */
+		box-shadow:
+		0 -4px 0 0 #357e21 inset;
 	}
 
 	span.material-icons {
@@ -157,7 +149,7 @@
 	}
 
 	span.material-icons:hover {
-		color: var(--color-accent);
+		color: var(--minecraft-text-accent-color);
 	}
 
 	video {

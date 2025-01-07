@@ -1,253 +1,287 @@
-<script lang="ts" context="module">
-	import { fly } from 'svelte/transition'
-
-	import AnimatedJavaIcon from '../../assets/icons/Animated Java 2.0 2023 Animated Icon x128 compressed.gif'
-	import AJDocsImage from '../../assets/images/AJ_Documentation.png'
-	import AJProjectSettingsImage from '../../assets/images/AJ_Project_Settings.png'
-	import AJShowcaseVideo from '../../assets/videos/aj-showcase.mp4'
-
-	import OriginsIcon from '../../assets/icons/origins-icon.png'
-	import MCBuildIcon from '../../assets/icons/mcbuild-icon.png'
-
-	import AstarIcon from '../../assets/icons/astar-icon.png'
-	import AstarVideo1 from '../../assets/videos/astar/A topdown view of the pathfinding in action.mp4'
-	import AstarVideo2 from '../../assets/videos/astar/Showcasing weighted blocks.mp4'
-	import AstarVideo3 from '../../assets/videos/astar/The example NPCs in action.mp4'
+<script lang="ts">
+	import ImageCarousel from '$lib/components/imageCarousel.svelte'
+	import VideoCarousel from '$lib/components/videoCarousel.svelte'
 </script>
 
-<div class="info_block_list">
-	<div in:fly={{ x: 64, duration: 500, delay: 0 }}>
-		<div class="title-container">
-			<div class="title">
-				<img class="icon" src={AnimatedJavaIcon} alt="" />
-				<h1>ANIMATED JAVA</h1>
-			</div>
-			<span class="role">Lead Developer / Author</span>
+<div class="project">
+	<div class="title minecraft-border">
+		<img
+			class="minecraft-box"
+			src="https://raw.githubusercontent.com/Animated-Java/animated-java/refs/heads/main/src/assets/animated_java_icon.svg"
+			alt="Animated Java Logo"
+		/>
+		<div>
+			<h1>Animated Java</h1>
+			<p style="max-width: 800px;">
+				A Blockbench plugin that makes complex animation a breeze in Minecraft: Java Edition.
+			</p>
 		</div>
-		<p style="margin: 0;">
-			A Blockbench plugin that makes complex animation a breeze in Minecraft: Java Edition.
-		</p>
-		<img class="preview" src={AJDocsImage} alt="" />
-		<img class="preview" src={AJProjectSettingsImage} alt="" />
-		<video class="preview" src={AJShowcaseVideo} autoplay loop muted />
-		<lu>
-			<li>
-				<a href="https://github.com/Animated-Java/animated-java">Github</a>
-			</li>
-			<li>
-				<a href="https://animated-java.dev/">Website</a>
-			</li>
-		</lu>
 	</div>
-	<div in:fly={{ x: 64, duration: 500, delay: 0 }}>
-		<div class="title-container">
-			<div class="title">
-				<img class="icon" src={OriginsIcon} alt="" />
-				<h1>ORIGINS MOD HELPER</h1>
-			</div>
-			<span class="role">Author</span>
-		</div>
-		<p style="margin: 0;">
-			A VSCode plugin that adds auto-complete for the Origins mod's many JSON files.
-		</p>
-		<lu>
-			<li>
-				<a href="https://github.com/SnaveSutit/origins-mod-json-schemas">Github</a>
-			</li>
-		</lu>
+	<p style="padding: 0 32px;">
+		My first major success, Animated Java is my most popular project to date. With over 170,000
+		downloads, and 3,000 members on Discord, it has ushered in a new era of polish in Java Edition
+		mapmaking!
+	</p>
+	<div class="project-buttons">
+		<button class="project-button" on:click={() => open('https://animated-java.dev/')}>
+			<img
+				src="https://raw.githubusercontent.com/FuncFusion/mc-dp-icons/refs/heads/main/fileicons/imgs/tags_file.svg"
+				alt="Tag"
+				width="32px"
+				style="margin-right: 8px;"
+			/>
+			Website
+		</button>
+		<button
+			class="project-button"
+			on:click={() => open('https://github.com/Animated-Java/animated-java')}
+		>
+			<img
+				src="https://raw.githubusercontent.com/FuncFusion/mc-dp-icons/refs/heads/main/fileicons/imgs/folder.svg"
+				alt="Chest"
+				width="32px"
+				style="margin-right: 8px;"
+			/>
+			Source
+		</button>
 	</div>
-	<div in:fly={{ x: 64, duration: 500, delay: 0 }}>
-		<div class="title-container">
-			<div class="title">
-				<img class="icon" src={MCBuildIcon} alt="" />
-				<h1>MCBUILD</h1>
-			</div>
-			<span class="role">Co-Author</span>
-		</div>
-		<p style="margin: 0;">
-			A powerful Data Pack pre-compiler with a focus on syntactic simplicity.
-		</p>
-		<lu>
-			<li>
-				<a href="https://github.com/mc-build/mc-build">GitHub</a>
-			</li>
-			<li>
-				<a href="https://mcbuild.dev/">Website</a>
-			</li>
-		</lu>
-	</div>
-	<div in:fly={{ x: 64, duration: 500, delay: 0 }}>
-		<div class="title-container">
-			<div class="title">
-				<img class="icon" src={MCBuildIcon} alt="" />
-				<h1>MCBUILD VSCODE EXTENSION</h1>
-			</div>
-			<span class="role">Author</span>
-		</div>
-		<div class="title" />
-		<p style="margin: 0;">VSCode Syntax Highlighting for MCBuild's Lang-MC</p>
-		<lu>
-			<li>
-				<a href="https://github.com/SnaveSutit/language-mcbuild-lang-mc">GitHub</a>
-			</li>
-			<li>
-				<a
-					href="https://marketplace.visualstudio.com/items?itemName=SnaveSutit.snavesutit-language-langmc"
-					>Website</a
-				>
-			</li>
-		</lu>
-	</div>
-	<div in:fly={{ x: 64, duration: 500, delay: 0 }}>
-		<div class="title-container">
-			<div class="title">
-				<img class="icon" src={AstarIcon} alt="" />
-				<h1>A* PATHFINDING DATA PACK</h1>
-			</div>
-			<span class="role">Author</span>
-		</div>
-		<p style="margin: 0;">
-			Async, performant, and excessively configurable A* pathfinding in vanilla Minecraft: Java
-			Edition.
-		</p>
-		<video class="preview" src={AstarVideo1} autoplay loop muted />
-		<video class="preview" src={AstarVideo2} autoplay loop muted />
-		<video class="preview" src={AstarVideo3} autoplay loop muted />
-		<lu>
-			<li>
-				<a href="https://github.com/SnaveSutit/mcworld-astar">GitHub</a>
-			</li>
-		</lu>
+	<div class="galleries">
+		<ImageCarousel
+			images={[
+				{
+					src: 'https://animated-java.dev/img/variants.gif',
+					caption: 'Variants'
+				},
+				{
+					src: 'https://animated-java.dev/img/easing.gif',
+					caption: 'Advanced Keyframe Easing Options'
+				},
+				{
+					src: '/img/aj-docs.png',
+					caption: 'Fully-Featured Documentation'
+				},
+				{
+					src: 'https://animated-java.dev/img/resourcepackless.png',
+					caption: 'Resourcepackless Models'
+				},
+				{
+					src: '/img/project-menu.png',
+					caption: 'Project Menu'
+				}
+			]}
+			title="Gallery"
+		/>
+		<VideoCarousel
+			title="Community Showcase"
+			videos={[
+				'RFwAM5v5QoQ', // I Coded Minecraft’s Hardest Difficulty
+				'dd7pqAPd-p0', // Phantom Manor
+				'XdABXLbS_ok', // I Coded Five Nights at Freddy's in Minecraft
+				'M2R3zgvbZ30', // How to Mine a Tree
+				'biJ41HIeu3E', // Minecraft: Fabled Lands - Lord Veridian Boss Fight
+				// '0xPyRA-he5c', // Cataclysmic Emissary
+				'fthlphRmsjY' // I Added Mr Beast to Minecraft...
+				// 'yfaQM3aHgxE' // Mordecai the Unending
+			]}
+		/>
 	</div>
 </div>
 
+<hr />
+
+<div class="project">
+	<div class="title minecraft-border">
+		<img
+			class="minecraft-box"
+			src="https://raw.githubusercontent.com/SnaveSutit/origins-mod-vscode-extension/refs/heads/main/icon.png"
+			alt="Origins JSON Schemas Logo"
+		/>
+		<div>
+			<h1>Origins JSON Schemas</h1>
+			<p style="max-width: 800px;">A VSCode Extension</p>
+		</div>
+	</div>
+	<p style="padding: 0 32px;">
+		Two projects in one! A VSCode extension, and a JSON Schema repository providing JSON Schemas for
+		the Origins mod, giving users much needed autocompletion, validation, and inline-documentation
+		for the mod's complex JSON files.
+	</p>
+	<p style="padding: 0 32px;">
+		Behind the scenes, the JSON Schemas are generated using a custom TypeScript preprocessor,
+		automatically inserting descriptions, and Minecraft data, such as block names, for
+		autocompletion.
+	</p>
+	<div class="project-buttons">
+		<button
+			class="project-button"
+			on:click={() => open('https://github.com/SnaveSutit/origins-mod-vscode-extension')}
+		>
+			<img
+				src="https://raw.githubusercontent.com/FuncFusion/mc-dp-icons/refs/heads/main/fileicons/imgs/folder.svg"
+				alt="Chest"
+				width="32px"
+				style="margin-right: 8px;"
+			/>
+			Extension Source
+		</button>
+		<button
+			class="project-button"
+			on:click={() => open('https://github.com/SnaveSutit/origins-mod-json-schemas')}
+		>
+			<img
+				src="https://raw.githubusercontent.com/FuncFusion/mc-dp-icons/refs/heads/main/fileicons/imgs/folder.svg"
+				alt="Chest"
+				width="32px"
+				style="margin-right: 8px;"
+			/>
+			Schema Source
+		</button>
+	</div>
+	<div class="galleries">
+		<ImageCarousel
+			images={[
+				{
+					src: 'https://raw.githubusercontent.com/SnaveSutit/origins-mod-vscode-extension/refs/heads/main/assets/example.gif',
+					caption: 'Showcase of Autocompletion and Validation'
+				},
+				{
+					src: '/img/example_origins_vscode.png',
+					caption: 'Example of Some Custom Preprocessor Syntax'
+				}
+			]}
+			title="Gallery"
+		/>
+	</div>
+</div>
+
+<hr />
+
+<div class="project">
+	<div class="title minecraft-border">
+		<img class="minecraft-box" src="/img/11things.png" alt="11 Things Logo" />
+		<div>
+			<h1>11 Things?</h1>
+			<p style="max-width: 800px;">A Mobile Game about merging Things!</p>
+		</div>
+	</div>
+	<p style="padding: 0 32px;">
+		11 Things is a mobile game I am developing in my free time using Godot. It is a simple game
+		about merging Things together to get larger Things to get the highest score possible. It is
+		inspired by 2048 and Suika Game.
+	</p>
+	<p style="padding: 0 32px;">
+		The main goals of this project are to gain a firm understanding of game development, and get the
+		experience of publishing a game before moving on to larger projects.
+	</p>
+	<div class="project-buttons">
+		<button class="project-button" on:click={() => open('https://discord.com/invite/vUK37EUsH6')}>
+			<img
+				src="https://raw.githubusercontent.com/FuncFusion/mc-dp-icons/refs/heads/main/fileicons/imgs/dimension_file.svg"
+				alt="Portal"
+				width="32px"
+				style="margin-right: 8px;"
+			/>
+			Discord Server
+		</button>
+	</div>
+	<div class="galleries">
+		<ImageCarousel
+			images={[
+				{
+					src: '/img/11things/main_menu.png',
+					caption: 'Main Menu'
+				},
+				{
+					src: '/img/11things/unlocks_menu.png',
+					caption: 'Unlocks Menu'
+				},
+				{
+					src: '/img/11things/gameplay.png',
+					caption: 'Gameplay'
+				}
+			]}
+			title="Gallery"
+		/>
+	</div>
+</div>
+
+<div style="height: 32px;" />
+
 <style>
-	@media only screen and (max-width: 1200px) {
-		div.title {
-			margin-top: 8px !important;
-			flex-direction: column;
-			align-items: center;
+	@media screen and (max-width: 800px) {
+		.project {
+			width: 90%;
 		}
-		div.title > h1 {
-			text-align: center !important;
+		.title {
+			flex-direction: column !important;
 			margin: 0 !important;
-			padding-top: 8px !important;
-			font-size: 28px !important;
+			margin-top: 16px;
+			padding-bottom: 0 !important;
 		}
-		.role {
-			font-size: 18px !important;
-			margin-left: 0px !important;
-			margin-bottom: 0px !important;
+		.title img {
+			margin: 0 !important;
+			margin-bottom: 16px !important;
 		}
-		.preview {
-			width: 100%;
+		.project-button {
+			width: 30vw !important;
+			height: 8vw !important;
+			font-size: 3vw !important;
 		}
-	}
-
-	@media only screen and (min-width: 1200px) {
-		.preview {
-			width: 80%;
+		.galleries {
+			margin: 0 !important;
 		}
 	}
 
-	.title-container {
+	.galleries {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		margin: 0 16px;
+		width: auto;
+		align-self: stretch;
+	}
+
+	.project-buttons {
+		display: flex;
 		justify-content: center;
+		align-self: center;
+		width: 100%;
+		padding: 0 16px;
 	}
 
-	.role {
-		font-size: 24px;
-		margin-left: 16px;
-		color: var(--color-text);
-		margin-bottom: 16px;
-	}
-
-	.preview {
-		margin: 16px 0px;
-		border-radius: 8px;
-		transition: transform cubic-bezier(1, 4, 0, 1) 0.2s, box-shadow cubic-bezier(1, 4, 0, 1) 0.2s;
-	}
-
-	.preview:hover {
-		transform: translateY(-4px);
-		z-index: 1;
-		box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
-	}
-
-	div.title {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-top: 16px;
-	}
-	div.title > h1 {
-		margin: 0;
-		margin-left: 16px;
-		font-size: 36px;
-		line-height: 1;
-		padding-top: 8px;
-	}
-
-	.info_block_list {
+	.project {
 		display: flex;
 		flex-direction: column;
-		padding: 32px 12%;
+		align-items: start;
+		margin-left: 16px;
+		margin-right: 16px;
+		width: 100%;
 	}
-	.info_block_list > div {
+
+	.project-button {
+		width: auto;
+		height: 48px;
+	}
+
+	.title {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		background-color: var(--color-foreground);
-		margin-bottom: 32px;
-		transition: transform cubic-bezier(1, 4, 0, 1) 0.2s, box-shadow cubic-bezier(1, 4, 0, 1) 0.2s;
-	}
-	.info_block_list > div:hover {
-		transform: translateY(-4px);
-		z-index: 1;
-		box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
-	}
-	.info_block_list > div > p {
-		text-align: left;
-		font-size: 20px;
-		margin: 16px 32px !important;
-	}
-	a {
-		text-align: center;
-		font-size: 24px;
-		margin-bottom: 16px;
-		color: var(--color-text);
-		text-decoration: none;
-	}
-	.info_block_list > div > lu {
-		display: flex;
-		text-align: left;
-		font-size: 20px;
-		margin: 16px 32px;
-		list-style: none;
 		flex-direction: row;
-		flex-wrap: wrap;
-		justify-content: center;
-		text-transform: uppercase;
+		align-items: center;
+		justify-content: flex-start;
+		background-color: var(--minecraft-background-color);
+		padding: 16px;
+		align-self: stretch;
+		margin: 0px 16px;
 	}
-	.info_block_list > div > lu > li {
-		min-width: fit-content;
-		margin: 4px;
-		padding: 4px 8px 2px;
-		border: 2px solid var(--color-text);
-		transition: transform cubic-bezier(1, 4, 0, 1) 0.2s;
-		background-color: var(--color-foreground);
-		cursor: default;
+
+	.title img {
+		width: 128px;
+		height: 128px;
+		margin-right: 32px;
+		margin-left: 8px;
 	}
-	.info_block_list > div > lu > li:hover:not(.experience-item) {
-		transform: translateY(-4px) rotate(1deg);
-		z-index: 1;
-	}
-	img.icon {
-		width: 64px;
-		height: 64px;
-		margin: 2px 8px 4px 2px;
-		border-radius: 8px;
+
+	p {
+		align-self: center;
 	}
 </style>

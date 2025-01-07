@@ -1,36 +1,37 @@
-<script lang="ts" context="module">
-	import '../global.css'
-	import SnaveSutitsPFP from '../assets/Terra Swoop Force SnaveSutit.png'
-	import { page } from '$app/stores'
-	import { onMount } from 'svelte'
-</script>
-
 <script lang="ts">
-	import { onNavigate } from '$app/navigation'
+	import Mouse from '$lib/components/mouse.svelte'
+	import Player from '$lib/components/player.svelte'
+	import Renderer from '$lib/components/renderer.svelte'
+	import ThreeScene from '$lib/components/threeScene.svelte'
 
-	const nav_pages: Record<string, string> = {
-		'/': 'PORTFOLIO',
-		// '/animations': 'ANIMATIONS',
-		'/projects': 'PROJECTS',
-		'/resume': 'RESUME'
-		// '/about': 'ABOUT'
+	import '../lib/styles.css'
+	import '../lib/minecraftUI.css'
+
+	import { beforeNavigate, afterNavigate, goto } from '$app/navigation'
+	import { onMount } from 'svelte'
+	const playerSize = 300
+
+	export let data
+
+	let isLoading = false
+	beforeNavigate(({ to }) => (isLoading = !!to?.route.id))
+	afterNavigate(() => (isLoading = false))
+	let isPlayerSceneLoaded = false
+
+	function onPlayerSceneLoaded() {
+		isPlayerSceneLoaded = true
 	}
-	let screenWidth: number
-	let showMenu: boolean = false
-	let pageContent: HTMLDivElement
 
-	$: if (screenWidth > 1200) showMenu = false
-
-	function toggleMenu() {
-		showMenu = !showMenu
-	}
-
-	onNavigate(() => {
-		if (pageContent) pageContent.scrollTo(0, 0)
+	onMount(() => {
+		addEventListener('mousedown', event => {
+			if (event.target instanceof HTMLButtonElement) {
+				const audio = new Audio('/sounds/click.mp3')
+				audio.volume = 0.25
+				audio.play()
+			}
+		})
 	})
 </script>
-
-<svelte:window bind:innerWidth={screenWidth} />
 
 <svelte:head>
 	<link href="https://fonts.googleapis.com/css?family=Vazirmatn" rel="stylesheet" />
@@ -38,227 +39,232 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </svelte:head>
 
-{#if showMenu}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div class="popup_menu_background" on:click={toggleMenu}>
-		<div class="popup_menu">
-			<span class="material-icons" on:click={toggleMenu}>close</span>
-			<div>
-				{#each Object.keys(nav_pages) as nav_path}
-					{#if nav_path === $page.url.pathname}
-						<a class="navigated_page" href="/">{nav_pages[nav_path]}</a>
-					{:else}
-						<a href={nav_path}>{nav_pages[nav_path]}</a>
-					{/if}
-				{/each}
+<div class="site-container">
+	<div class="mobile-warning minecraft-box">
+		<p>It is recommended to view this page on a desktop device for the best experience!</p>
+	</div>
+
+	<div class="title minecraft-box">
+		<div class="player-container minecraft-inset-box">
+			<div class="transition" style={`opacity:${isPlayerSceneLoaded ? 1 : 0};`}>
+				<img
+					class="nametag"
+					src="/img/snavesutit_nametag.png"
+					alt="SnaveSutit"
+					draggable="false"
+					width={playerSize / 2}
+				/>
+				<ThreeScene
+					width={playerSize * 0.75}
+					height={playerSize}
+					let:container
+					onLoad={onPlayerSceneLoaded}
+				>
+					<Renderer />
+					<Mouse global {container}>
+						<Player />
+					</Mouse>
+				</ThreeScene>
 			</div>
 		</div>
+		<div class="description">
+			<h1>Hey there!</h1>
+			<h1>I'm Titus</h1>
+			<p>I am a 24 year-old technical animator, full-stack web developer, and game developer.</p>
+			<p>
+				I have been playing Minecraft since 2009, and have been creating Data Packs, maps, and tools
+				for the game since 2013.
+			</p>
+			<p>
+				I am passionate about creating tools and experiences that inspire and empower others to do
+				the same!
+			</p>
+		</div>
 	</div>
-{/if}
 
-<div class="header">
-	<div class="author">
-		<img src={SnaveSutitsPFP} alt="SnaveSutit's PFP" />
-		<h1>TITUS EVANS</h1>
+	<div class="page-content minecraft-box">
+		<div class="page-buttons">
+			<button class="page-button" disabled={data.pathname === '/'} on:click={() => goto('/')}>
+				Portfolio
+			</button>
+			<button
+				class="page-button"
+				disabled={data.pathname === '/projects'}
+				on:click={() => goto('/projects')}
+			>
+				Projects
+			</button>
+			<button
+				class="page-button"
+				disabled={data.pathname === '/about'}
+				on:click={() => goto('/about')}
+			>
+				About
+			</button>
+			<button
+				class="page-button"
+				disabled={data.pathname === '/contact'}
+				on:click={() => goto('/contact')}
+			>
+				Contact
+			</button>
+		</div>
+		<hr />
+		<slot />
 	</div>
-	<nav>
-		{#if screenWidth > 1000}
-			{#each Object.keys(nav_pages) as nav_path}
-				{#if nav_path === $page.url.pathname}
-					<a class="navigated_page" href="/">{nav_pages[nav_path]}</a>
-				{:else}
-					<a href={nav_path}>{nav_pages[nav_path]}</a>
-				{/if}
-			{/each}
-		{:else}
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<!-- svelte-ignore a11y-no-static-element-interactions -->
-			<span class="material-icons" on:click={toggleMenu}>menu</span>
-		{/if}
-	</nav>
-</div>
 
-<div class="page_content" bind:this={pageContent}>
-	<slot />
+	<div class="footer minecraft-box">
+		<p class="footer-text">This site is unaffiliated with Mojang Studios.</p>
+		<p class="footer-text">
+			This site uses icons from <a href="https://github.com/FuncFusion/mc-dp-icons">MC-DP-Icons</a>!
+		</p>
+	</div>
 </div>
 
 <style>
-	@media only screen and (max-width: 1200px) {
-		:global(body) {
-			min-width: 65vh;
+	@media screen and (max-width: 800px) {
+		.page-content {
+			margin-left: 5vw !important;
+			margin-right: 5vw !important;
 		}
-		.header {
-			position: fixed;
-			top: 0;
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: stretch;
-			justify-content: space-between;
-			height: 64px;
-			background-color: var(--color-foreground);
-			box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
-			flex-grow: 1;
-			z-index: 2;
-		}
-		.author {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
-		.author img {
-			border-radius: 50%;
-			height: 50px;
-			width: 50px;
-			margin-left: 8px;
-		}
-		.author h1 {
-			font-family: 'Archivo Black', sans-serif;
-			font-size: 32px;
-			margin-left: 16px;
-		}
-		a {
-			font-size: 24px;
-			color: var(--color-text);
-			text-decoration: none;
-			margin: 0px 16px;
-			margin-bottom: 8px;
-			border-bottom: 0px solid transparent;
-			transition: border-bottom-width cubic-bezier(1, 2, 0, 1) 0.1s;
-		}
-		a:hover {
-			border-bottom: 4px solid var(--color-text);
-		}
-		a.navigated_page {
-			border-bottom: 4px solid var(--color-accent);
-		}
-		a.navigated_page:hover {
-			border-bottom: 4px solid var(--color-accent);
-		}
-		nav {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			margin-top: 8px;
-		}
-		nav span {
-			font-size: 50px;
-			color: var(--color-text);
-			text-decoration: none;
-			margin: 0px 16px;
-			margin-bottom: 8px;
-			border-bottom: 0px solid transparent;
-			cursor: pointer;
-		}
-		.popup_menu_background {
-			position: fixed;
-			z-index: 10;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-		.popup_menu {
-			margin: 25% 25%;
-			min-height: 50%;
-			padding: 32px;
-			display: flex;
+		.page-buttons {
 			flex-direction: column;
-			align-items: center;
-			/* justify-content: space-between; */
-			background-color: var(--color-foreground);
+			gap: 16px;
 		}
-		.popup_menu div {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			flex-grow: 1;
+		.page-button {
+			height: 10vw !important;
+			font-size: 5vw !important;
 		}
-		.popup_menu a {
-			color: var(--color-text);
-			font-size: 1.7rem;
-			margin: 16px;
+		.title {
+			flex-direction: column !important;
+			align-items: center !important;
+			width: 90% !important;
+			margin-top: 16px !important;
+			margin-left: 5vw !important;
+			margin-right: 5vw !important;
 		}
-		.popup_menu .material-icons {
-			font-size: 64px;
-			margin-left: 80%;
-			cursor: pointer;
+		.title div:not(.description) {
+			margin: 0 !important;
+			margin-top: 16px !important;
 		}
-		.page_content {
-			margin-top: 64px;
-			height: auto;
-			overflow-y: auto;
-			overflow-x: hidden;
-			/* scroll-behavior: smooth; */
+		.description {
+			width: 90% !important;
+		}
+		.description p {
+			font-size: 14px !important;
+		}
+		.player-container {
+			align-self: center !important;
+		}
+
+		.mobile-warning {
+			display: block !important;
 		}
 	}
-	@media only screen and (min-width: 1200px) {
-		.header {
-			position: fixed;
-			top: 0;
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			align-items: stretch;
-			justify-content: space-between;
-			height: 128px;
-			background-color: var(--color-foreground);
-			box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
-			flex-grow: 1;
-			z-index: 2;
-		}
-		.author {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-		}
-		.author img {
-			border-radius: 50%;
-			height: 100px;
-			width: 100px;
-			margin-left: 16px;
-		}
-		.author h1 {
-			font-family: 'Archivo Black', sans-serif;
-			font-size: 48px;
-			margin-left: 32px;
-		}
-		nav {
-			display: flex;
-			flex-direction: row;
-			align-items: end;
-			margin-right: 16px;
-		}
-		nav a {
-			font-size: 24px;
-			color: var(--color-text);
-			text-decoration: none;
-			margin: 0px 16px;
-			margin-bottom: 8px;
-			border-bottom: 0px solid transparent;
-			transition: border-bottom-width cubic-bezier(1, 2, 0, 1) 0.1s;
-			cursor: pointer;
-		}
-		nav a:hover {
-			border-bottom: 4px solid var(--color-text);
-		}
-		a.navigated_page {
-			border-bottom: 4px solid var(--color-accent);
-		}
-		a.navigated_page:hover {
-			border-bottom: 4px solid var(--color-accent);
-		}
-		.page_content {
-			margin-top: 128px;
-			height: auto;
-			overflow-y: auto;
-			overflow-x: hidden;
-			/* scroll-behavior: smooth; */
-		}
+
+	.mobile-warning {
+		display: none;
+		padding: 16px;
+		top: 0;
+		margin-top: 4px;
+		margin-left: 4px;
+		margin-right: 3.5px;
+	}
+	.mobile-warning p {
+		font-weight: normal;
+		color: #ff5555;
+		line-height: 1.3rem;
+		margin: 0;
+		filter: drop-shadow(2px 2px 0 #440000);
+	}
+
+	.player-container {
+		margin-right: 16px;
+		align-self: flex-start;
+	}
+
+	.footer {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		margin-top: auto;
+	}
+	.footer-text {
+		font-size: 16px;
+		padding: 0 16px;
+	}
+
+	.page-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 20px;
+		padding-bottom: 32px;
+		margin-bottom: 64px;
+		margin-left: 16vw;
+		margin-right: 16vw;
+		align-self: stretch;
+	}
+
+	.page-buttons {
+		display: flex;
+		justify-content: center;
+		align-self: stretch;
+		margin-left: calc(-4px + 16px);
+		margin-right: 16px;
+	}
+
+	.page-button {
+		flex-grow: 1;
+		height: 4vw;
+		font-size: 2vw;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* font-size: 24px; */
+	}
+
+	.site-container {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 16px;
+		overflow: auto;
+		backdrop-filter: blur(3px);
+	}
+	.title {
+		margin-top: 38px;
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: center;
+		color: var(--color-text-secondary);
+		align-self: center;
+		margin-bottom: 32px;
+	}
+	.transition {
+		transition: all 0.5s cubic-bezier(0.5, 0, 0.5, 1);
+	}
+	.title div:not(.description) {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.description {
+		padding: 8px 16px;
+	}
+	.title .description {
+		width: 400px;
+	}
+	.title .description p {
+		text-wrap: balance;
+		font-size: 20px;
+	}
+	.nametag {
+		image-rendering: pixelated;
 	}
 </style>
