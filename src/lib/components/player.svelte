@@ -3,8 +3,8 @@
 	import { BoneStructure } from '$lib/three/boneStructure'
 	import { clamp, sigmoid } from '$lib/util'
 	import { T, useTask } from '@threlte/core'
-	import { HTML, useGltf, useInteractivity } from '@threlte/extras'
-	import { Vector2, Vector3 } from 'three'
+	import { useGltf, useInteractivity } from '@threlte/extras'
+	import { Vector2 } from 'three'
 	import { Animation } from '../animation'
 
 	const viewScale = 1.25

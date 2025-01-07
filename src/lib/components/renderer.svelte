@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Camera } from 'three'
 	import { T, useTask, useThrelte } from '@threlte/core'
-	import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
-	import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-	import { SSAARenderPass } from 'three/examples/jsm/postprocessing/SSAARenderPass'
-	import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
-	import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader'
+	import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
+	import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
+	import { SSAARenderPass } from 'three/addons/postprocessing/SSAARenderPass.js'
+	import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js'
+	import { GammaCorrectionShader } from 'three/addons/shaders/GammaCorrectionShader.js'
 	import { onMount } from 'svelte'
 
 	const { scene, renderer, camera, size } = useThrelte()
