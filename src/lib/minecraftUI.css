@@ -71,6 +71,7 @@ button {
 	border-bottom: unset;
 	padding: calc(4px + 8px) calc(1px + 8px) calc(8px + 12px + 4px) calc(4px + 8px);
 	margin-left: 4px;
+	margin-bottom: 4px;
 	position: relative;
 	display: flex;
 	flex-direction: row;

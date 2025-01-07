@@ -40,8 +40,12 @@
 </svelte:head>
 
 <div class="site-container">
+	<div class="mobile-warning minecraft-box">
+		<p>It is recommended to view this page on a desktop device for the best experience!</p>
+	</div>
+
 	<div class="title minecraft-box">
-		<div class="minecraft-inset-box" style="margin-right: 16px;">
+		<div class="player-container minecraft-inset-box">
 			<div class="transition" style={`opacity:${isPlayerSceneLoaded ? 1 : 0};`}>
 				<img
 					class="nametag"
@@ -66,8 +70,10 @@
 		<div class="description">
 			<h1>Hey there!</h1>
 			<h1>I'm Titus</h1>
+			<p>I am a 24 year-old technical animator, full-stack web developer, and game developer.</p>
 			<p>
-				I am a software engineer, full-stack web developer, technical animator, and game developer.
+				I have been playing Minecraft since 2009, and have been creating Data Packs, maps, and tools
+				for the game since 2013.
 			</p>
 			<p>
 				I am passionate about creating tools and experiences that inspire and empower others to do
@@ -118,8 +124,8 @@
 <style>
 	@media screen and (max-width: 800px) {
 		.page-content {
-			margin-left: 16px !important;
-			margin-right: 16px !important;
+			margin-left: 5vw !important;
+			margin-right: 5vw !important;
 		}
 		.page-buttons {
 			flex-direction: column;
@@ -127,13 +133,15 @@
 		}
 		.page-button {
 			height: 10vw !important;
-			font-size: 6vw !important;
+			font-size: 5vw !important;
 		}
 		.title {
 			flex-direction: column !important;
 			align-items: center !important;
 			width: 90% !important;
 			margin-top: 16px !important;
+			margin-left: 5vw !important;
+			margin-right: 5vw !important;
 		}
 		.title div:not(.description) {
 			margin: 0 !important;
@@ -145,6 +153,34 @@
 		.description p {
 			font-size: 14px !important;
 		}
+		.player-container {
+			align-self: center !important;
+		}
+
+		.mobile-warning {
+			display: block !important;
+		}
+	}
+
+	.mobile-warning {
+		display: none;
+		padding: 16px;
+		top: 0;
+		margin-top: 4px;
+		margin-left: 4px;
+		margin-right: 3.5px;
+	}
+	.mobile-warning p {
+		font-weight: normal;
+		color: #ff5555;
+		line-height: 1.3rem;
+		margin: 0;
+		filter: drop-shadow(2px 2px 0 #440000);
+	}
+
+	.player-container {
+		margin-right: 16px;
+		align-self: flex-start;
 	}
 
 	.footer {
@@ -164,9 +200,10 @@
 		flex-direction: column;
 		align-items: center;
 		padding-top: 20px;
+		padding-bottom: 32px;
 		margin-bottom: 64px;
-		margin-left: 10vw !important;
-		margin-right: 10vw !important;
+		margin-left: 16vw;
+		margin-right: 16vw;
 		align-self: stretch;
 	}
 

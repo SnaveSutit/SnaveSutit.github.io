@@ -57,8 +57,16 @@
 					caption: 'Advanced Keyframe Easing Options'
 				},
 				{
+					src: '/img/aj-docs.png',
+					caption: 'Fully-Featured Documentation'
+				},
+				{
 					src: 'https://animated-java.dev/img/resourcepackless.png',
 					caption: 'Resourcepackless Models'
+				},
+				{
+					src: '/img/project-menu.png',
+					caption: 'Project Menu'
 				}
 			]}
 			title="Gallery"

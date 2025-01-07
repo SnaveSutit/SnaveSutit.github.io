@@ -18,6 +18,7 @@
 		width: auto;
 		margin: 32px;
 		margin-top: 0px;
+		margin-bottom: 0px;
 		align-self: stretch;
 	}
 </style>
