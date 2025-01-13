@@ -8,12 +8,13 @@
 	import '../lib/minecraftUI.css'
 	import { page } from '$app/stores'
 
-	import { beforeNavigate, afterNavigate, goto } from '$app/navigation'
+	import { beforeNavigate, afterNavigate, goto, onNavigate } from '$app/navigation'
 	import { onMount } from 'svelte'
 	const playerSize = 300
 
 	export let data
 
+	let pageContent: HTMLDivElement
 	let isLoading = false
 	beforeNavigate(({ to }) => (isLoading = !!to?.route.id))
 	afterNavigate(() => (isLoading = false))
@@ -22,6 +23,13 @@
 	function onPlayerSceneLoaded() {
 		isPlayerSceneLoaded = true
 	}
+
+	onNavigate(() => {
+		requestAnimationFrame(() => {
+			scrollTo({ top: pageContent.offsetTop, behavior: 'instant' })
+			console.log('Navigated!')
+		})
+	})
 
 	onMount(() => {
 		addEventListener('mousedown', event => {
@@ -53,6 +61,8 @@
 		<meta content="#00ACED" data-react-helmet="true" name="theme-color" />
 	{/key}
 </svelte:head>
+
+<div class="background" />
 
 <div class="site-container">
 	<div class="mobile-warning minecraft-box">
@@ -97,7 +107,7 @@
 		</div>
 	</div>
 
-	<div class="page-content minecraft-box">
+	<div class="page-content minecraft-box" bind:this={pageContent}>
 		<div class="page-buttons">
 			<button class="page-button" disabled={data.pathname === '/'} on:click={() => goto('/')}>
 				Portfolio
@@ -238,7 +248,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/* font-size: 24px; */
 	}
 
 	.site-container {
@@ -248,7 +257,6 @@
 		flex-direction: column;
 		align-items: stretch;
 		gap: 16px;
-		overflow: auto;
 		backdrop-filter: blur(3px);
 	}
 	.title {
@@ -281,5 +289,18 @@
 	}
 	.nametag {
 		image-rendering: pixelated;
+	}
+
+	.background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('/img/background.png');
+		background-size: cover;
+		background-position: center;
+		background-attachment: fixed;
+		background-image: url(/img/background.png);
 	}
 </style>

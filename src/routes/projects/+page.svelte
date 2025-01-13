@@ -165,9 +165,59 @@
 		</div>
 	</div>
 	<p style="padding: 0 32px;">
-		11 Things is a mobile game I am developing in my free time using Godot. It is a simple game
-		about merging Things together to get larger Things to get the highest score possible. It is
-		inspired by 2048 and Suika Game.
+		11 Things is a mobile game I am developing in my free time using the Godot game engine. It is a
+		simple game about merging Things together to get larger Things to get the highest score
+		possible. It is inspired by 2048 and Suika Game.
+	</p>
+	<p style="padding: 0 32px;">
+		The main goals of this project are to gain a firm understanding of game development, and get the
+		experience of publishing a game before moving on to larger projects.
+	</p>
+	<div class="project-buttons">
+		<button class="project-button" on:click={() => open('https://discord.com/invite/vUK37EUsH6')}>
+			<img
+				src="https://raw.githubusercontent.com/FuncFusion/mc-dp-icons/refs/heads/main/fileicons/imgs/dimension_file.svg"
+				alt="Portal"
+				width="32px"
+				style="margin-right: 8px;"
+			/>
+			Discord Server
+		</button>
+	</div>
+	<div class="galleries">
+		<ImageCarousel
+			images={[
+				{
+					src: '/img/11things/main_menu.png',
+					caption: 'Main Menu'
+				},
+				{
+					src: '/img/11things/unlocks_menu.png',
+					caption: 'Unlocks Menu'
+				},
+				{
+					src: '/img/11things/gameplay.png',
+					caption: 'Gameplay'
+				}
+			]}
+			title="Gallery"
+		/>
+	</div>
+</div>
+<hr />
+
+<div class="project">
+	<div class="title minecraft-border">
+		<img class="minecraft-box" src="/img/11things.png" alt="11 Things Logo" />
+		<div>
+			<h1>11 Things?</h1>
+			<p style="max-width: 800px;">A Mobile Game about merging Things!</p>
+		</div>
+	</div>
+	<p style="padding: 0 32px;">
+		11 Things is a mobile game I am developing in my free time using the Godot game engine. It is a
+		simple game about merging Things together to get larger Things to get the highest score
+		possible. It is inspired by 2048 and Suika Game.
 	</p>
 	<p style="padding: 0 32px;">
 		The main goals of this project are to gain a firm understanding of game development, and get the

@@ -138,11 +138,14 @@ h6 {
 	/* prettier-ignore */
 	box-shadow:
 		0 -12px 0 0 #b1b2b5 inset,
-		/* 0 -16px 0 0 var(--minecraft-button-inset-border-color) inset,
-		0 0 0 4px var(--minecraft-button-inset-border-color) inset, */
 		0 0 0 4px var(--minecraft-border-color);
 	padding: calc(4px + 8px) calc(1px + 8px) calc(8px + 12px) calc(4px + 8px);
 	margin-bottom: 4px;
+	/* align-self: stretch; */
+	filter: drop-shadow(4px 4px 0px #00000066);
+	align-self: stretch;
+	margin: 0px 15px;
+	margin-bottom: 16px;
 }
 
 .minecraft-inset-box {

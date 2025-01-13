@@ -5,6 +5,9 @@
 	<p>
 		Discord: <a href="https://discord.com/users/213746232923783168"> SnaveSutit </a>
 	</p>
+	<p>
+		Github <a href="https://github.com/SnaveSutit">https://github.com/SnaveSutit</a>
+	</p>
 </div>
 
 <style>

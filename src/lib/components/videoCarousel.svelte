@@ -82,6 +82,8 @@
 		align-self: stretch;
 		align-items: center;
 		justify-content: center;
+		margin: 0px 0px !important;
+		filter: unset !important;
 	}
 	.title h2 {
 		margin: 0;

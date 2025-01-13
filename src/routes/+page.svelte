@@ -18,7 +18,10 @@
 <div class="title minecraft-title-box">Keyframed Animations</div>
 <div class="grid">
 	<Expandable caption="Statue Golem Roar">
-		<img src="/animations/golem-roar.gif" alt="" />
+		<img src="/animations/golem-roar.gif" alt="" style="pointer-events: none;" />
+	</Expandable>
+	<Expandable caption="Statue Golem Roar">
+		<img src="/animations/golem-idle.gif" alt="" style="pointer-events: none;" />
 	</Expandable>
 	<Video src="/animations/turret_upgrades.mp4" />
 	<Video src="/animations/turkey_cooked.mp4" />

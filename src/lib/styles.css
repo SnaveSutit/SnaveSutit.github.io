@@ -14,14 +14,15 @@
 	-webkit-user-select: none;
 }
 
+html {
+	height: 100%;
+	overflow-y: auto;
+}
+
 html,
 body {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
-
-	background-image: url(/img/background.png);
 	margin: 0;
 	padding: 0;
-	overflow-y: hidden;
 }
