@@ -1,0 +1,173 @@
+@font-face {
+	font-family: 'MinecraftFull';
+	src: url('/font/MinecraftFull-1.20.ttf') format('truetype');
+}
+
+* {
+	--minecraft-font: 'MinecraftFull', ui-monospace, monospace;
+	--minecraft-background-color: #313233;
+	--minecraft-foreground-color: #48494a;
+	--minecraft-border-color: #1e1e1f;
+
+	--minecraft-border-top-color: #5a5b5c;
+	--minecraft-border-bottom-color: #323334;
+
+	--minecraft-text-color: #1e1e1f;
+	--minecraft-text-accent-color: #4aa730;
+	--minecraft-text-secondary-color: #ffffff;
+	--minecraft-text-subtle-color: #d0d1d4;
+
+	--minecraft-button-color: #d0d1d4;
+	--minecraft-button-hover-color: #b1b2b5;
+	--minecraft-button-inset-border-color: #ecedee;
+
+	font-family: var(--minecraft-font);
+	color: var(--minecraft-text-secondary-color);
+
+	::-webkit-scrollbar {
+		display: none;
+	}
+	::-webkit-scrollbar-track {
+		display: none;
+	}
+	::-webkit-scrollbar-thumb {
+		display: none;
+	}
+}
+
+hr {
+	width: 100%;
+	border: 0;
+	border-top: 4px solid var(--minecraft-border-bottom-color);
+	border-bottom: 4px solid var(--minecraft-border-top-color);
+	margin: 32px 0;
+}
+
+p {
+	color: var(--minecraft-text-subtle-color);
+	line-height: 1.4em;
+	font-size: 20px;
+	max-width: 800px;
+}
+
+a {
+	color: var(--minecraft-text-accent-color);
+	font-weight: normal;
+	/* text-decoration: none; */
+}
+
+button {
+	all: unset;
+	font-family: var(--minecraft-font);
+	font-size: 20px;
+	color: var(--minecraft-text-color);
+	background-color: var(--minecraft-button-color);
+	/* prettier-ignore */
+	box-shadow:
+		0 -12px 0 0 #58585a inset,
+		0 -16px 0 0 var(--minecraft-button-inset-border-color) inset,
+		0 0 0 4px var(--minecraft-button-inset-border-color) inset,
+		0 0 0 4px var(--minecraft-border-color);
+	border-bottom: unset;
+	padding: calc(4px + 8px) calc(1px + 8px) calc(8px + 12px + 4px) calc(4px + 8px);
+	margin-left: 4px;
+	margin-bottom: 4px;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+button:hover {
+	background-color: var(--minecraft-button-hover-color);
+}
+button:active {
+	/* prettier-ignore */
+	box-shadow:
+		0 0 0 4px #ecedee inset,
+		0 0 0 4px #1e1e1f;
+	padding: calc(4px + 8px) calc(1px + 8px) calc(8px + 4px) calc(4px + 8px);
+	/* border-top: 12px solid #00000000; */
+	margin-top: 12px;
+}
+button:disabled {
+	color: var(--minecraft-text-secondary-color);
+	background-color: #3c8527;
+	/* prettier-ignore */
+	box-shadow:
+		0 0 0 4px #639d52 inset,
+		0 0 0 4px #1e1e1f;
+	padding: calc(4px + 8px) calc(1px + 8px) calc(8px + 4px) calc(4px + 8px);
+	margin-top: 12px;
+}
+button:disabled::after {
+	content: '';
+	border-bottom: 4px solid #ecedee;
+	font-size: 40px;
+	position: absolute;
+	bottom: 0;
+	width: 38%;
+}
+
+h1 {
+	font-size: 32px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+	filter: drop-shadow(4px 4px 0px #00000066);
+}
+
+.minecraft-box {
+	outline: 4px solid var(--minecraft-border-color);
+	background-color: var(--minecraft-foreground-color);
+	/* prettier-ignore */
+	box-shadow:
+		0 4px 0 0 var(--minecraft-border-top-color) inset,
+		0 -4px 0 0 var(--minecraft-border-bottom-color) inset;
+}
+
+.minecraft-title-box {
+	color: var(--minecraft-text-color);
+	background-color: #e6e8eb;
+	/* prettier-ignore */
+	box-shadow:
+		0 -12px 0 0 #b1b2b5 inset,
+		0 0 0 4px var(--minecraft-border-color);
+	padding: calc(4px + 8px) calc(1px + 8px) calc(8px + 12px) calc(4px + 8px);
+	margin-bottom: 4px;
+	/* align-self: stretch; */
+	filter: drop-shadow(4px 4px 0px #00000066);
+	align-self: stretch;
+	margin: 0px 15px;
+	margin-bottom: 16px;
+}
+
+.minecraft-inset-box {
+	background-color: var(--minecraft-background-color);
+	/* prettier-ignore */
+	box-shadow:
+		0 12px 0 0 #242425 inset,
+		/* 0 -16px 0 0 var(--minecraft-button-inset-border-color) inset,
+		0 0 0 4px var(--minecraft-button-inset-border-color) inset, */
+		0 0 0 4px var(--minecraft-border-color);
+	padding: calc(8px + 16px) calc(8px + 1px) calc(8px + 4px) calc(8px + 4px);
+}
+
+.minecraft-border {
+	outline: 4px solid var(--minecraft-border-color);
+}
+
+@media screen and (max-width: 800px) {
+	h1 {
+		font-size: 20px;
+	}
+	p {
+		font-size: 14px;
+	}
+}
