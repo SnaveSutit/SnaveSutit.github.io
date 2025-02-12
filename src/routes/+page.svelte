@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Expandable from '$lib/components/expandable.svelte'
-	import ImageCarousel from '$lib/components/imageCarousel.svelte'
 	import Video from '$lib/components/video.svelte'
 </script>
 
