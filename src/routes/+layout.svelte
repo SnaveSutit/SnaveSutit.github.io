@@ -7,17 +7,11 @@
 	import '../lib/styles.css'
 	import '../lib/minecraftUI.css'
 	import { page } from '$app/stores'
-
-	import { beforeNavigate, afterNavigate, goto, onNavigate } from '$app/navigation'
+	import { goto, onNavigate } from '$app/navigation'
 	import { onMount } from 'svelte'
 	const playerSize = 300
 
-	export let data
-
 	let pageContent: HTMLDivElement
-	let isLoading = false
-	beforeNavigate(({ to }) => (isLoading = !!to?.route.id))
-	afterNavigate(() => (isLoading = false))
 	let isPlayerSceneLoaded = false
 
 	function onPlayerSceneLoaded() {
@@ -50,7 +44,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Archivo Black" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-	{#key $page.url.pathname}
+	{#key $page.route.id}
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta property="og:type" content="website" />
@@ -109,26 +103,26 @@
 
 	<div class="page-content minecraft-box" bind:this={pageContent}>
 		<div class="page-buttons">
-			<button class="page-button" disabled={data.pathname === '/'} on:click={() => goto('/')}>
+			<button class="page-button" disabled={$page.route.id === '/'} on:click={() => goto('/')}>
 				Portfolio
 			</button>
 			<button
 				class="page-button"
-				disabled={data.pathname === '/projects'}
+				disabled={$page.route.id === '/projects'}
 				on:click={() => goto('/projects')}
 			>
 				Projects
 			</button>
 			<button
 				class="page-button"
-				disabled={data.pathname === '/about'}
+				disabled={$page.route.id === '/about'}
 				on:click={() => goto('/about')}
 			>
 				About
 			</button>
 			<button
 				class="page-button"
-				disabled={data.pathname === '/contact'}
+				disabled={$page.route.id === '/contact'}
 				on:click={() => goto('/contact')}
 			>
 				Contact
