@@ -22,7 +22,7 @@
 <hr />
 <div class="title minecraft-title-box">Resume PDF</div>
 <p>
-	<a href="Resume.pdf">View</a>
+	<a href="/Resume.pdf">View</a>
 </p>
 <hr />
 <div class="title minecraft-title-box">Skills</div>
